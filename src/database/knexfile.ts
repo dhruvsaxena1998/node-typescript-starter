@@ -6,21 +6,11 @@ interface IKnexConfig {
 
 const config: IKnexConfig = {
   development: {
-    client: "mysql",
-    connection: {
-      host: "localhost",
-      user: "admin",
-      password: "admin123",
-      database: "template",
-    },
-  },
-
-  staging: {
     client: "postgresql",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
+      database: "template",
+      user: "postgres",
+      password: "root",
     },
     pool: {
       min: 2,
@@ -30,7 +20,6 @@ const config: IKnexConfig = {
       tableName: "knex_migrations",
     },
   },
-
   production: {
     client: "postgresql",
     connection: {

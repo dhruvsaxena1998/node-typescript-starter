@@ -1,7 +1,19 @@
 import express from "express";
 
-const app = express();
+import cors from "cors";
+import Routes from "./routes";
 
-app.listen(3000, () => {
-  console.log("listening on 3000");
-});
+import apiErrorHandler from "./helpers/apiErrorHandler";
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+app.use(Routes);
+app.use("/public", express.static("public/"));
+
+/*
+ * Keep error-handler as last middleware
+ */
+app.use(apiErrorHandler);
+
+export default app;

@@ -3,6 +3,6 @@ const Router = _Router();
 
 import UserController from "../controllers/UserController";
 
-Router.post("/register", UserController.create);
+Router.post("/register", UserController.register);
 
 export default Router;

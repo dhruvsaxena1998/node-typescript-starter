@@ -1,8 +1,10 @@
 import db from "../database/db";
 import sanitize from "../helpers/sanitize";
 
+import { UserSanitizedResponse } from "../types/UserTypes";
+
 class PersonDAO {
-  async create(
+  async register(
     username: string,
     email: string,
     password: string,
@@ -16,12 +18,12 @@ class PersonDAO {
         password,
         name,
         image,
-        role_id: 2,
+        role: "AUTHENTICATED",
         is_verified: false,
       })
       .returning("*");
 
-    return sanitize(data, "users");
+    return sanitize(data, "users") as UserSanitizedResponse;
   }
 }
 

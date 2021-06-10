@@ -20,7 +20,7 @@ export async function seed(knex: Knex): Promise<void> {
   //   USERS
   await knex("users").insert([
     {
-      role_id: 1,
+      role: "AUTHENTICATED",
       username: "dhruv",
       email: "saxenadhruv1927@gmail.com",
       password: "Tsg-msn12",

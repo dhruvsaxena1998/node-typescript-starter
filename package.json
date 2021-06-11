@@ -11,8 +11,8 @@
     "knex": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts",
     "knex:migrate": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts migrate:latest",
     "knex:seed": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts seed:run",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
+    "lint": "eslint -f unix \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint -f unix \"src/**/*.{ts,tsx}\" --fix"
   },
   "repository": {
     "type": "git",

@@ -43,6 +43,7 @@ export default (error: ErrorRequestHandler, req: Request, res: Response, next: N
     return;
   }
 
+  console.log(error);
   res.status(500).send('Something went wrong');
   next();
 };

@@ -1,7 +1,6 @@
 import db from '../database/db';
-import sanitize from '../helpers/sanitize';
 
-import { UserSanitizedResponse } from '../types/UserTypes';
+import { UserUnSanitizedResponse } from '../types/UserTypes';
 
 class PersonDAO {
   async register(username: string, email: string, password: string, name?: string, image?: string) {
@@ -17,7 +16,12 @@ class PersonDAO {
       })
       .returning('*');
 
-    return sanitize(data, 'users') as UserSanitizedResponse;
+    return data as UserUnSanitizedResponse;
+  }
+
+  async login(identifier: string) {
+    const [data] = await db('users').where('username', identifier).orWhere('email', identifier);
+    return data as UserUnSanitizedResponse;
   }
 }
 

@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import { ApiError } from "../helpers/apiErrorHandler";
-import PersonService from "../services/UserService";
+import { Request, Response, NextFunction } from 'express';
+import { ApiError } from '../helpers/apiErrorHandler';
+import PersonService from '../services/UserService';
 
 class PersonController {
   async register(req: Request, res: Response, next: NextFunction) {

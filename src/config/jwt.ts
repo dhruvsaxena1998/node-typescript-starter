@@ -4,8 +4,8 @@
  */
 
 const jwt = {
-  secret: process.env.JWT_SECRET || "a606f398-51e9-4ba8-b8bb-02326f666bdf",
-  expires: process.env.JWT_EXPIRES || "30d",
+  secret: process.env.JWT_SECRET || 'a606f398-51e9-4ba8-b8bb-02326f666bdf',
+  expires: process.env.JWT_EXPIRES || '30d',
 };
 
 export default jwt;

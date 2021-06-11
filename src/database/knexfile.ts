@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import { Knex } from 'knex';
 
 interface IKnexConfig {
   [key: string]: Knex.Config;
@@ -6,33 +6,33 @@ interface IKnexConfig {
 
 const config: IKnexConfig = {
   development: {
-    client: "postgresql",
+    client: 'postgresql',
     connection: {
-      database: "template",
-      user: "postgres",
-      password: "root",
+      database: 'template',
+      user: 'postgres',
+      password: 'root',
     },
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      tableName: "knex_migrations",
+      tableName: 'knex_migrations',
     },
   },
   production: {
-    client: "postgresql",
+    client: 'postgresql',
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
+      database: 'my_db',
+      user: 'username',
+      password: 'password',
     },
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      tableName: "knex_migrations",
+      tableName: 'knex_migrations',
     },
   },
 };

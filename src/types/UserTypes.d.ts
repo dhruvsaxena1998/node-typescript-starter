@@ -11,9 +11,9 @@ export interface UserSanitizedResponse {
   role: string;
   username: string;
   email: string;
-  name?: any;
+  name?: string;
   is_verified: boolean;
-  image?: any;
+  image?: string;
   created_at: Date;
   updated_at: Date;
 }

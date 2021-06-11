@@ -1,7 +1,7 @@
+import { NextFunction, Request, Response } from 'express';
 import winston from 'winston';
 
 const logger = winston.createLogger({
-  level: 'info',
   format: winston.format.json(),
   transports: [
     //
@@ -24,5 +24,19 @@ if (process.env.NODE_ENV !== 'production') {
     }),
   );
 }
+
+const getResponseTime = (start: [number, number]) => {
+  const NS_PER_SEC = 1e9; //  convert to nanoseconds
+  const NS_TO_MS = 1e6; // convert to milliseconds
+  const diff = process.hrtime(start);
+  return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS;
+};
+
+// Api-Logger middleware
+export const apiLogger = (req: Request, res: Response, next: NextFunction): void => {
+  const start = process.hrtime();
+  logger.info(`[${req.method}] ${req.url} ${getResponseTime(start).toLocaleString()}ms`);
+  next();
+};
 
 export default logger;

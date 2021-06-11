@@ -1,15 +1,17 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import logger from './logger';
 
 export class ApiError {
   statusCode: number;
-  message: string;
+  message: unknown;
 
-  constructor(statusCode: number, message: string) {
+  constructor(statusCode: number, message: unknown) {
     this.statusCode = statusCode;
     this.message = message;
   }
 
-  static badRequest(message: string): ApiError {
+  static badRequest(message: unknown): ApiError {
+    logger.error(message);
     return new ApiError(400, message);
   }
 
@@ -29,7 +31,8 @@ export class ApiError {
     return ApiError.internalError();
   }
 
-  static internalError(message = 'Internal server error.'): ApiError {
+  static internalError(message: unknown = 'Internal server error.'): ApiError {
+    logger.error(message);
     return new ApiError(500, message);
   }
 }

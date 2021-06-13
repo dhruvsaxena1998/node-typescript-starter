@@ -20,6 +20,10 @@ app.use(apiLogger);
 app.use(Routes);
 app.use('/public', express.static('public/'));
 
+app.get('/', (req: express.Request, res: express.Response) => {
+  return res.status(200).send({ message: 'HelloWorld' });
+});
+
 /*
  * Keep error-handler as last middleware
  */

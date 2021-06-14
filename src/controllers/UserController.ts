@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ApiError } from '../helpers/apiErrorHandler';
 import UserService from '../services/UserService';
 
-class PersonController {
+class UserController {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await UserService.register(req.body);
@@ -22,4 +22,4 @@ class PersonController {
   }
 }
 
-export default new PersonController();
+export default new UserController();

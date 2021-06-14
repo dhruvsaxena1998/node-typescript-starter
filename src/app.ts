@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import Routes from './routes';
+import bootstrap from './config/bootstrap';
 
 import swaggerUI from 'swagger-ui-express';
 import full_documentation from './documentation/full_documentation.json';
@@ -36,5 +37,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(full_documentation));
  * Keep error-handler as last middleware
  */
 app.use(apiErrorHandler);
+
+// Bootstrap function runs before staring app
+bootstrap(app);
 
 export default app;

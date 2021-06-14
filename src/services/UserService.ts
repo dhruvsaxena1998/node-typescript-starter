@@ -4,8 +4,18 @@ import { hash, compare } from '../helpers/hashing';
 import jwt from '../helpers/jsonwebtoken';
 import { ApiError } from '../helpers/apiErrorHandler';
 
-import { UserDTO, UserLoginDTO } from '../types/UserTypes';
+import { UserDTO, UserLoginDTO, UserUnSanitizedResponse } from '../types/UserTypes';
 import sanitize from '../helpers/sanitize';
+
+const issueToken = (payload: UserUnSanitizedResponse) => {
+  const token = jwt.issueToken({
+    id: payload.user_id,
+    role: payload.role,
+    email: payload.email,
+  });
+
+  return { token, user: sanitize(payload, 'users') };
+};
 
 class UserService {
   async register(userDTO: UserDTO) {
@@ -14,35 +24,19 @@ class UserService {
     const hashedPassword = await hash(password);
     const user = await UserDAO.register(username, email, hashedPassword, name, image);
 
-    const token = jwt.issueToken({
-      id: user.user_id,
-      role: user.role,
-      email: user.email,
-    });
-
-    return { token, user: sanitize(user, 'users') };
+    return issueToken(user);
   }
 
   async login(userDTO: UserLoginDTO) {
     const { identifier, password } = userDTO;
     const user = await UserDAO.login(identifier);
 
-    if (!user) {
-      return ApiError.badRequest('User not found');
-    }
+    if (!user) return ApiError.badRequest('User not found');
 
     const isSamePassword = await compare(password, user.password);
-    if (!isSamePassword) {
-      return ApiError.badRequest('Incorrect password!');
-    }
+    if (!isSamePassword) return ApiError.badRequest('Incorrect password!');
 
-    const token = jwt.issueToken({
-      id: user.user_id,
-      role: user.role,
-      email: user.email,
-    });
-
-    return { token, user: sanitize(user, 'users') };
+    return issueToken(user);
   }
 }
 

@@ -1,0 +1,2 @@
+# node-express-typescript
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5caabe40399f45278e6f6248b7460636)](https://app.codacy.com/gh/dhruvsaxena1998/node-express-typescript?utm_source=github.com&utm_medium=referral&utm_content=dhruvsaxena1998/node-express-typescript&utm_campaign=Badge_Grade_Settings)

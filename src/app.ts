@@ -3,6 +3,9 @@ import express from 'express';
 import cors from 'cors';
 import Routes from './routes';
 
+import swaggerUI from 'swagger-ui-express';
+import full_documentation from './documentation/full_documentation.json';
+
 import apiErrorHandler from './helpers/apiErrorHandler';
 import { apiLogger } from './helpers/logger';
 
@@ -24,6 +27,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
   return res.status(200).send({ message: 'HelloWorld' });
 });
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(full_documentation));
 /*
  * Keep error-handler as last middleware
  */

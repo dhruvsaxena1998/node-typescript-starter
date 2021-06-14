@@ -1,0 +1,178 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Template API Documentation",
+    "description": "REST API for template",
+    "contact": {
+      "name": "Dhruv Saxena",
+      "url": "http://github.com/dhruvsaxena1998",
+      "email": "saxenadhruv1927@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://www.mit.edu/~amini/LICENSE.md"
+    },
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local Server"
+    }
+  ],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Logs in a user",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login-user"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authenticated-user"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error404"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": ["username", "email", "role", "is_verified"],
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "description": "Auto generated user id",
+            "default": 12
+          },
+          "role": {
+            "type": "string",
+            "description": "Role assigned to user, one of three [ADMINSTRATOR, AUTHENTICATED, PUBLIC]",
+            "default": "AUTHENTICATED"
+          },
+          "username": {
+            "type": "string",
+            "description": "Unique identifier",
+            "default": "admin"
+          },
+          "email": {
+            "type": "string",
+            "description": "Unique user email",
+            "default": "admin@template.io"
+          },
+          "name": {
+            "type": "string",
+            "default": "Admin"
+          },
+          "is_verified": {
+            "type": "boolean",
+            "default": true
+          },
+          "image": {
+            "type": "string",
+            "description": "Profile image of user",
+            "default": "/uploads/admin-profile.png"
+          },
+          "created_at": {
+            "type": "string",
+            "default": "2021-06-14T13:13:20.504Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "default": "2021-06-14T13:13:20.504Z"
+          }
+        }
+      },
+      "authenticated-user": {
+        "type": "object",
+        "required": ["jwt", "user"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInJvb...iwiZXhwIjoxNjI2MjcwNTIyfQ.7NqIvu9BKy3trafkaXcsxvi4sP6n31nRcoaoJ16ZbIM"
+          },
+          "user": {
+            "$ref": "#/components/schemas/user"
+          }
+        }
+      },
+      "login-user": {
+        "type": "object",
+        "required": ["identifier", "password"],
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "Email / Username",
+            "default": "admin@template.io"
+          },
+          "password": {
+            "type": "string",
+            "description": "Super secret password",
+            "default": "admin"
+          }
+        }
+      },
+      "error404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": [""]
+          },
+          "type": {
+            "type": "string",
+            "default": "any.required"
+          },
+          "context": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              }
+            }
+          },
+          "level": {
+            "type": "string",
+            "default": "error"
+          }
+        }
+      }
+    }
+  }
+}

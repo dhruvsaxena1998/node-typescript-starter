@@ -21,7 +21,12 @@ export class ApiError {
      Learn more: https://www.postgresql.org/docs/9.2/errcodes-appendix.html 
     */
     const errorcodes: { [key: string]: () => ApiError } = {
-      '23505': () => ApiError.badRequest('Unique key violation'),
+      '23505': () =>
+        ApiError.badRequest({
+          message: 'Unique key violation',
+          type: 'any.unique',
+          level: 'error',
+        }),
     };
 
     if (errorcodes[code]) {
@@ -31,7 +36,9 @@ export class ApiError {
     return ApiError.internalError();
   }
 
-  static internalError(message: unknown = 'Internal server error.'): ApiError {
+  static internalError(
+    message: unknown = { message: 'Something went wrong', type: 'any.internal', level: 'error' },
+  ): ApiError {
     logger.error(message);
     return new ApiError(500, message);
   }

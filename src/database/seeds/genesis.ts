@@ -21,10 +21,10 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('users').insert([
     {
       role: 'AUTHENTICATED',
-      username: 'dhruv',
-      email: 'saxenadhruv1927@gmail.com',
-      password: 'Tsg-msn12',
-      name: 'Dhruv Saxena',
+      username: 'admin',
+      email: 'admin@template.io',
+      password: 'admin',
+      name: 'Admin',
     },
   ]);
 }

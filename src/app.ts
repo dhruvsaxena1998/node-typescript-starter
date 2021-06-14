@@ -20,14 +20,16 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(apiLogger);
 
 // Routes
-app.use(Routes);
-app.use('/public', express.static('public/'));
-
 app.get('/', (req: express.Request, res: express.Response) => {
   return res.status(200).send({ message: 'HelloWorld' });
 });
+app.use('/api', Routes);
+app.use('/public', express.static('public/'));
+app.use('/uploads', express.static('public/uploads/'));
 
+// Swagger documentation
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(full_documentation));
+
 /*
  * Keep error-handler as last middleware
  */

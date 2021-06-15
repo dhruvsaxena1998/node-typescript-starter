@@ -1,9 +1,15 @@
-import db from '../database/db';
+import { database as db } from '../database/db';
 
 import { UserUnSanitizedResponse } from '../types/UserTypes';
 
 class PersonDAO {
-  async register(username: string, email: string, password: string, name?: string, image?: string) {
+  public async register(
+    username: string,
+    email: string,
+    password: string,
+    name?: string,
+    image?: string,
+  ): Promise<UserUnSanitizedResponse> {
     const [data] = await db('users')
       .insert({ username, email, password, name, image, role: 'AUTHENTICATED', is_verified: false })
       .returning('*');
@@ -11,7 +17,7 @@ class PersonDAO {
     return data as UserUnSanitizedResponse;
   }
 
-  async login(identifier: string) {
+  public async login(identifier: string): Promise<UserUnSanitizedResponse> {
     const [data] = await db('users').where('username', identifier).orWhere('email', identifier);
     return data as UserUnSanitizedResponse;
   }

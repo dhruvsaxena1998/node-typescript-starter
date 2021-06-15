@@ -1,7 +1,7 @@
 import { Application } from 'express';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async (app: Application): Promise<void> => {
+export const bootstrap = async (app: Application): Promise<void> => {
   /**
    * An asynchronous bootstrap function that runs before
    * your application gets started.

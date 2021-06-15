@@ -1,5 +1,5 @@
 import Request from 'supertest';
-import app from '../app';
+import { app } from '../app';
 
 describe('Testing http:api calls', () => {
   it('should return 200 with valid response', async () => {

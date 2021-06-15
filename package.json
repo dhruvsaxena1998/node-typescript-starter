@@ -13,8 +13,7 @@
     "knex:seed": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts seed:run",
     "lint": "eslint -f unix \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint -f unix \"src/**/*.{ts,tsx}\" --fix",
-    "test:unit": "jest --verbose",
-    "docs": "typedoc --out docs ./src"
+    "test:unit": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -46,7 +45,6 @@
     "@types/lodash": "^4.14.170",
     "@types/node": "^15.12.2",
     "@types/supertest": "^2.0.11",
-    "@types/swagger-jsdoc": "^6.0.0",
     "@types/swagger-ui-express": "^4.1.2",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
@@ -73,7 +71,6 @@
     "knex": "^0.95.6",
     "lodash": "^4.17.21",
     "pg": "^8.6.0",
-    "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
   }

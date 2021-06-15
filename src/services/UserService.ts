@@ -1,24 +1,30 @@
 import UserDAO from '../dao/UserDAO';
 
 import { hash, compare } from '../helpers/hashing';
-import jwt from '../helpers/jsonwebtoken';
+import * as jwt from '../helpers/jsonwebtoken';
 import { ApiError } from '../helpers/apiErrorHandler';
 
-import { UserDTO, UserLoginDTO, UserUnSanitizedResponse } from '../types/UserTypes';
-import sanitize from '../helpers/sanitize';
+import {
+  AuthResponse,
+  UserRegisterDTO,
+  UserLoginDTO,
+  UserSanitizedResponse,
+  UserUnSanitizedResponse,
+} from '../types/UserTypes';
+import { sanitizeEntity } from '../helpers/sanitize';
 
-const issueToken = (payload: UserUnSanitizedResponse) => {
+const issueToken = (payload: UserUnSanitizedResponse): AuthResponse => {
   const token = jwt.issueToken({
     id: payload.user_id,
     role: payload.role,
     email: payload.email,
   });
 
-  return { token, user: sanitize(payload, 'users') };
+  return { token, user: sanitizeEntity(payload, 'users') as UserSanitizedResponse };
 };
 
-class UserService {
-  async register(userDTO: UserDTO) {
+class UserServices {
+  public async register(userDTO: UserRegisterDTO): Promise<AuthResponse> {
     const { username, email, password, name, image } = userDTO;
 
     const hashedPassword = await hash(password);
@@ -27,7 +33,7 @@ class UserService {
     return issueToken(user);
   }
 
-  async login(userDTO: UserLoginDTO) {
+  public async login(userDTO: UserLoginDTO): Promise<AuthResponse> {
     const { identifier, password } = userDTO;
     const user = await UserDAO.login(identifier);
 
@@ -52,4 +58,4 @@ class UserService {
   }
 }
 
-export default new UserService();
+export const UserService = new UserServices();

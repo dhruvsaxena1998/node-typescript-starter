@@ -2,13 +2,13 @@ import express from 'express';
 
 import cors from 'cors';
 import helmet from 'helmet';
-import Routes from './routes';
-import bootstrap from './config/bootstrap';
+import { router } from './routes';
+import { bootstrap } from './config/bootstrap';
 
 import swaggerUI from 'swagger-ui-express';
 import full_documentation from './documentation/full_documentation.json';
 
-import apiErrorHandler from './helpers/apiErrorHandler';
+import { ErrorHandler } from './helpers/apiErrorHandler';
 import { apiLogger } from './helpers/logger';
 
 const app = express();
@@ -26,7 +26,7 @@ app.use(apiLogger);
 app.get('/', (req: express.Request, res: express.Response) => {
   return res.status(200).send({ message: 'HelloWorld' });
 });
-app.use('/api', Routes);
+app.use('/api', router);
 app.use('/public', express.static('public/'));
 app.use('/uploads', express.static('public/uploads/'));
 
@@ -36,9 +36,9 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(full_documentation));
 /*
  * Keep error-handler as last middleware
  */
-app.use(apiErrorHandler);
+app.use(ErrorHandler);
 
 // Bootstrap function runs before staring app
 bootstrap(app);
 
-export default app;
+export { app };

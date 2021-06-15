@@ -1,8 +1,8 @@
-import { Router as _Router } from 'express';
-const Router = _Router();
+import { Router } from 'express';
+const router = Router();
 
-import UserRoutes from './UserRoutes';
+import { UserRouter } from './UserRoutes';
 
-Router.use('/users', UserRoutes);
+router.use('/users', UserRouter);
 
-export default Router;
+export { router };

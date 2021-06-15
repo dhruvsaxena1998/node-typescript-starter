@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { ApiError } from '../helpers/apiErrorHandler';
 import UserService from '../services/UserService';
 
 class UserController {
@@ -8,7 +7,7 @@ class UserController {
       const data = await UserService.register(req.body);
       res.status(201).send(data);
     } catch (err) {
-      return next(ApiError.error(err.code));
+      return next(err);
     }
   }
 
@@ -17,7 +16,7 @@ class UserController {
       const data = await UserService.login(req.body);
       res.status(200).send(data);
     } catch (err) {
-      return next(ApiError.error(err.code));
+      return next(err);
     }
   }
 }

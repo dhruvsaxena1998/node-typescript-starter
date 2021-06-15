@@ -31,10 +31,22 @@ class UserService {
     const { identifier, password } = userDTO;
     const user = await UserDAO.login(identifier);
 
-    if (!user) return ApiError.badRequest('User not found');
+    if (!user)
+      throw ApiError.badRequest({
+        key: 'identifier',
+        message: 'User not found!',
+        type: 'err.not-found',
+        path: ['username', 'email'],
+      });
 
     const isSamePassword = await compare(password, user.password);
-    if (!isSamePassword) return ApiError.badRequest('Incorrect password!');
+    if (!isSamePassword)
+      throw ApiError.badRequest({
+        key: 'password',
+        message: 'Password is incorrect!',
+        type: 'err.password-mismatch',
+        path: ['password'],
+      });
 
     return issueToken(user);
   }

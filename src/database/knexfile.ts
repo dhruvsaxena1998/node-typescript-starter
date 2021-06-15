@@ -4,7 +4,7 @@ interface IKnexConfig {
   [key: string]: Knex.Config;
 }
 
-const config: IKnexConfig = {
+const configs: IKnexConfig = {
   development: {
     client: 'postgresql',
     connection: {
@@ -23,7 +23,7 @@ const config: IKnexConfig = {
   test: {
     client: 'postgresql',
     connection: {
-      database: 'template',
+      database: 'template_test',
       user: 'postgres',
       password: 'root',
     },
@@ -38,7 +38,7 @@ const config: IKnexConfig = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
+      database: 'template_production',
       user: 'username',
       password: 'password',
     },
@@ -52,4 +52,4 @@ const config: IKnexConfig = {
   },
 };
 
-export default config;
+export { configs };

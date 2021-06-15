@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import UserService from '../services/UserService';
+import { UserService } from '../services/UserService';
 
-class UserController {
-  async register(req: Request, res: Response, next: NextFunction) {
+class UserControllers {
+  public async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const data = await UserService.register(req.body);
       res.status(201).send(data);
@@ -11,7 +11,7 @@ class UserController {
     }
   }
 
-  async login(req: Request, res: Response, next: NextFunction) {
+  public async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const data = await UserService.login(req.body);
       res.status(200).send(data);
@@ -21,4 +21,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export const UserController = new UserControllers();

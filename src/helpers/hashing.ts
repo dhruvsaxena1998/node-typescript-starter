@@ -10,5 +10,3 @@ export const hash = async (str: string, rounds = saltRounds): Promise<string> =>
 export const compare = async (str: string, hash = ''): Promise<boolean> => {
   return bcrypt.compare(str, hash);
 };
-
-export default { hash, compare };

@@ -1,10 +1,10 @@
-import { Router as _Router } from 'express';
-const Router = _Router();
+import { Router } from 'express';
+const UserRouter = Router();
 
-import UserController from '../controllers/UserController';
+import { UserController } from '../controllers/UserController';
 import { RegisterValidator, LoginValidator } from '../validators/UserValidator';
 
-Router.post('/login', [LoginValidator], UserController.login);
-Router.post('/register', [RegisterValidator], UserController.register);
+UserRouter.post('/login', [LoginValidator], UserController.login);
+UserRouter.post('/register', [RegisterValidator], UserController.register);
 
-export default Router;
+export { UserRouter };

@@ -1,6 +1,6 @@
 import { Knex } from 'knex';
 
-export async function seed(knex: Knex): Promise<void> {
+export const seed = async (knex: Knex): Promise<void> => {
   // Deletes ALL existing entries
   await knex('roles').del();
   await knex('users').del();
@@ -27,4 +27,4 @@ export async function seed(knex: Knex): Promise<void> {
       name: 'Admin',
     },
   ]);
-}
+};

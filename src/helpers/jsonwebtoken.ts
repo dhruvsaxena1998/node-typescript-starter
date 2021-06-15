@@ -1,5 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken';
-import config from '../config/jwt';
+import { jwt } from '../config/jwt';
 
 export interface IPayload {
   id: number;
@@ -9,13 +9,11 @@ export interface IPayload {
 }
 
 export const issueToken = (payload: IPayload): string => {
-  return jsonwebtoken.sign(payload, config.secret, {
-    expiresIn: config.expires,
+  return jsonwebtoken.sign(payload, jwt.secret, {
+    expiresIn: jwt.expires,
   });
 };
 
 export const verifyToken = (token: string): IPayload => {
-  return jsonwebtoken.verify(token, config.secret) as IPayload;
+  return jsonwebtoken.verify(token, jwt.secret) as IPayload;
 };
-
-export default { issueToken, verifyToken };

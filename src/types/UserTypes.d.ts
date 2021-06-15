@@ -1,4 +1,4 @@
-export interface UserDTO {
+export interface UserRegisterDTO {
   username: string;
   email: string;
   password: string;
@@ -25,4 +25,9 @@ export interface UserSanitizedResponse {
 
 export interface UserUnSanitizedResponse extends UserSanitizedResponse {
   password: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: UserSanitizedResponse;
 }

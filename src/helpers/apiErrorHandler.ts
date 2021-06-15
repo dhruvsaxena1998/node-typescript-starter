@@ -3,20 +3,20 @@ import logger from './logger';
 import { Error } from '../types/Error';
 
 export class ApiError {
-  statusCode: number;
-  message: Error;
+  public statusCode: number;
+  public message: Error;
 
   constructor(statusCode: number, message: Error) {
     this.statusCode = statusCode;
     this.message = message;
   }
 
-  static badRequest(message: Error): ApiError {
+  public static badRequest(message: Error): ApiError {
     logger.error(message);
     return new ApiError(400, message);
   }
 
-  static internalError(
+  public static internalError(
     message: Error = {
       message: 'Something went wrong!',
       type: 'err.internal',

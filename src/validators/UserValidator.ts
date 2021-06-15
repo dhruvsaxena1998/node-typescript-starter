@@ -1,6 +1,5 @@
 import Joi from 'joi';
-import { ApiError } from '../helpers/apiErrorHandler';
-
+import { buildErrorObject } from './common';
 // Types
 import { Request, Response, NextFunction } from 'express';
 
@@ -16,7 +15,7 @@ export const RegisterValidator = async (req: Request, res: Response, next: NextF
     await schema.validateAsync(req.body);
     next();
   } catch (err) {
-    next(ApiError.badRequest(err.details[0]));
+    next(buildErrorObject(err.details[0]));
   }
 };
 
@@ -29,6 +28,6 @@ export const LoginValidator = async (req: Request, res: Response, next: NextFunc
     await schema.validateAsync(req.body);
     next();
   } catch (err) {
-    next(ApiError.badRequest(err.details[0]));
+    next(buildErrorObject(err.details[0]));
   }
 };

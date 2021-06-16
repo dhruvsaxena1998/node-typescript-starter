@@ -22,7 +22,7 @@ class PersonDAO {
     return data as UserUnSanitizedResponse;
   }
 
-  public async findOne(id: number) {
+  public async findOne(id: number): Promise<UserUnSanitizedResponse> {
     const [data] = await db('users').where('user_id', id);
     return data as UserUnSanitizedResponse;
   }

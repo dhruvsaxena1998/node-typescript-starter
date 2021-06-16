@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { router } from './routes';
 import { bootstrap } from './config/bootstrap';
+import { Authenticate } from './middlewares/Auth';
 
 import swaggerUI from 'swagger-ui-express';
 import full_documentation from './documentation/full_documentation.json';
@@ -21,6 +22,12 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 // Middleware to logs api request
 app.use(apiLogger);
+
+// Authenticate middleware
+/**
+ * Set user info to req.user object, null if not provided
+ */
+app.use(Authenticate);
 
 // Routes
 app.get('/', (req: express.Request, res: express.Response) => {

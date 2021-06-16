@@ -19,6 +19,15 @@ class UserControllers {
       return next(err);
     }
   }
+
+  public async me(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const user = await UserService.me(req.user);
+      res.status(200).send(user);
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 export const UserController = new UserControllers();

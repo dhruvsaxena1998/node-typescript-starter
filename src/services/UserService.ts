@@ -12,6 +12,7 @@ import {
   UserUnSanitizedResponse,
 } from '../types/UserTypes';
 import { sanitizeEntity } from '../helpers/sanitize';
+import { logger } from '../helpers/logger';
 
 const issueToken = (payload: UserUnSanitizedResponse): AuthResponse => {
   const token = jwt.issueToken({
@@ -55,6 +56,19 @@ class UserServices {
       });
 
     return issueToken(user);
+  }
+
+  public async findOne(id: number): Promise<UserSanitizedResponse> {
+    const user = await UserDAO.findOne(id);
+    return sanitizeEntity(user, 'users') as UserSanitizedResponse;
+  }
+
+  public async me(user: UserSanitizedResponse | null | undefined) {
+    if (!user) {
+      throw ApiError.forbidden();
+    }
+
+    return user;
   }
 }
 

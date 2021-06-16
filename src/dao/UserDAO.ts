@@ -24,7 +24,7 @@ class PersonDAO {
 
   public async findOne(id: number) {
     const [data] = await db('users').where('user_id', id);
-    return data;
+    return data as UserUnSanitizedResponse;
   }
 }
 

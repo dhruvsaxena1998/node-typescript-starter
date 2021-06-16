@@ -12,7 +12,6 @@ import {
   UserUnSanitizedResponse,
 } from '../types/UserTypes';
 import { sanitizeEntity } from '../helpers/sanitize';
-import { logger } from '../helpers/logger';
 
 const issueToken = (payload: UserUnSanitizedResponse): AuthResponse => {
   const token = jwt.issueToken({
@@ -63,7 +62,7 @@ class UserServices {
     return sanitizeEntity(user, 'users') as UserSanitizedResponse;
   }
 
-  public async me(user: UserSanitizedResponse | null | undefined) {
+  public async me(user: UserSanitizedResponse | null | undefined): Promise<UserSanitizedResponse> {
     if (!user) {
       throw ApiError.forbidden();
     }

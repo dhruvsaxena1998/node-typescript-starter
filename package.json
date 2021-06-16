@@ -13,7 +13,8 @@
     "knex:seed": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts seed:run",
     "lint": "eslint -f unix \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint -f unix \"src/**/*.{ts,tsx}\" --fix",
-    "test:unit": "jest --verbose"
+    "test:unit": "jest --verbose",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -69,9 +70,13 @@
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.6",
+    "lint-staged": "^11.0.0",
     "lodash": "^4.17.21",
     "pg": "^8.6.0",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
+  }, 
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": "yarn lint"
   }
 }

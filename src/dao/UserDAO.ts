@@ -21,6 +21,11 @@ class PersonDAO {
     const [data] = await db('users').where('username', identifier).orWhere('email', identifier);
     return data as UserUnSanitizedResponse;
   }
+
+  public async findOne(id: number): Promise<UserUnSanitizedResponse> {
+    const [data] = await db('users').where('user_id', id);
+    return data as UserUnSanitizedResponse;
+  }
 }
 
 export default new PersonDAO();

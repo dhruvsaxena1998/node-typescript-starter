@@ -16,6 +16,18 @@ export class ApiError {
     return new ApiError(400, message);
   }
 
+  public static forbidden(
+    message: Error = {
+      key: 'token',
+      message: 'Forbidden',
+      type: 'err.forbidden',
+      path: ['authentication'],
+    },
+  ): ApiError {
+    logger.error(message);
+    return new ApiError(403, message);
+  }
+
   public static internalError(
     message: Error = {
       message: 'Something went wrong!',
@@ -34,6 +46,6 @@ export const ErrorHandler = (error: ErrorRequestHandler, req: Request, res: Resp
     return;
   }
 
-  res.status(500).send('Something went wrong');
+  res.status(500).send(error);
   next();
 };

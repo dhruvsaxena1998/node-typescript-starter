@@ -56,6 +56,19 @@ class UserServices {
 
     return issueToken(user);
   }
+
+  public async findOne(id: number): Promise<UserSanitizedResponse> {
+    const user = await UserDAO.findOne(id);
+    return sanitizeEntity(user, 'users') as UserSanitizedResponse;
+  }
+
+  public async me(user: UserSanitizedResponse | null | undefined): Promise<UserSanitizedResponse> {
+    if (!user) {
+      throw ApiError.forbidden();
+    }
+
+    return user;
+  }
 }
 
 export const UserService = new UserServices();

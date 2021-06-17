@@ -29,6 +29,18 @@ export class ApiError {
     return new ApiError(code, message);
   }
 
+  public static limited(
+    message: Error = {
+      key: 'ratelimit',
+      message: 'Too many requests!',
+      type: 'err.ratelimit',
+      path: ['rate-limit'],
+    },
+  ): ApiError {
+    logger.error(message);
+    return new ApiError(429, message);
+  }
+
   public static internalError(
     message: Error = {
       message: 'Something went wrong!',

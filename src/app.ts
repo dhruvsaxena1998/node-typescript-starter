@@ -4,7 +4,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { router } from './routes';
 import { bootstrap } from './config/bootstrap';
-import { Authenticate, Authorize, ROLES } from './middlewares/Auth';
+
+import { Authenticate } from './middlewares/Auth';
+import { RateLimiter } from './middlewares/rate-limiter';
 
 import swaggerUI from 'swagger-ui-express';
 import full_documentation from './documentation/full_documentation.json';
@@ -30,7 +32,7 @@ app.use(apiLogger);
 app.use(Authenticate);
 
 // Routes
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', RateLimiter(), (req: express.Request, res: express.Response) => {
   return res.status(200).send({ message: 'HelloWorld' });
 });
 app.use('/api', router);

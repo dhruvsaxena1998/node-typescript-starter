@@ -52,4 +52,9 @@ const configs: IKnexConfig = {
   },
 };
 
-export { configs };
+/**
+ * export default is required for knex to resolve
+ * Knex required configuration option 'client' is missing error
+ */
+// eslint-disable-next-line no-eval
+export default configs;

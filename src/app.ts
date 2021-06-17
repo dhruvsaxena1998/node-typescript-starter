@@ -25,7 +25,7 @@ app.use(apiLogger);
 
 // Authenticate middleware
 /**
- * Set user info to req.user object, null if not provided
+ * Set user info to req.user object, null if authentication token is not provided
  */
 app.use(Authenticate);
 

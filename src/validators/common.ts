@@ -1,6 +1,6 @@
 import { ApiError } from '../helpers/apiErrorHandler';
 
-import { Error } from '../types/Error';
+import { Error } from '../@types/Error';
 
 interface ValidatorError extends Error {
   context: { key?: string; label?: string };

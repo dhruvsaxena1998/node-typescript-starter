@@ -1,4 +1,4 @@
-import UserDAO from '../dao/UserDAO';
+import { UserDao } from '../dao/UserDAO';
 
 import { hash, compare } from '../helpers/hashing';
 import * as jwt from '../helpers/jsonwebtoken';
@@ -10,7 +10,7 @@ import {
   UserLoginDTO,
   UserSanitizedResponse,
   UserUnSanitizedResponse,
-} from '../types/UserTypes';
+} from '../@types/UserTypes';
 import { sanitizeEntity } from '../helpers/sanitize';
 
 const issueToken = (payload: UserUnSanitizedResponse): AuthResponse => {
@@ -28,14 +28,14 @@ class UserServices {
     const { username, email, password, name, image } = userDTO;
 
     const hashedPassword = await hash(password);
-    const user = await UserDAO.register(username, email, hashedPassword, name, image);
+    const user = await UserDao.register(username, email, hashedPassword, name, image);
 
     return issueToken(user);
   }
 
   public async login(userDTO: UserLoginDTO): Promise<AuthResponse> {
     const { identifier, password } = userDTO;
-    const user = await UserDAO.login(identifier);
+    const user = await UserDao.login(identifier);
 
     if (!user)
       throw ApiError.badRequest({
@@ -58,7 +58,7 @@ class UserServices {
   }
 
   public async findOne(id: number): Promise<UserSanitizedResponse> {
-    const user = await UserDAO.findOne(id);
+    const user = await UserDao.findOne(id);
     return sanitizeEntity(user, 'users') as UserSanitizedResponse;
   }
 

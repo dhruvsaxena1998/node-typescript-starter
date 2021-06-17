@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import { logger } from './logger';
-import { Error } from '../types/Error';
+import { Error } from '../@types/Error';
 
 export class ApiError {
   public statusCode: number;
@@ -17,6 +17,7 @@ export class ApiError {
   }
 
   public static forbidden(
+    code: 401 | 403 = 403,
     message: Error = {
       key: 'token',
       message: 'Forbidden',
@@ -25,7 +26,7 @@ export class ApiError {
     },
   ): ApiError {
     logger.error(message);
-    return new ApiError(403, message);
+    return new ApiError(code, message);
   }
 
   public static internalError(

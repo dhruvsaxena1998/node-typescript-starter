@@ -1,8 +1,8 @@
 import { database as db } from '../database/db';
 
-import { UserUnSanitizedResponse } from '../types/UserTypes';
+import { UserUnSanitizedResponse } from '../@types/UserTypes';
 
-class PersonDAO {
+class UserDAO {
   public async register(
     username: string,
     email: string,
@@ -28,4 +28,4 @@ class PersonDAO {
   }
 }
 
-export default new PersonDAO();
+export const UserDao = new UserDAO();

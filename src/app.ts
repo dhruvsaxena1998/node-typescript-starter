@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { router } from './routes';
 import { bootstrap } from './config/bootstrap';
-import { Authenticate } from './middlewares/Auth';
+import { Authenticate, Authorize, ROLES } from './middlewares/Auth';
 
 import swaggerUI from 'swagger-ui-express';
 import full_documentation from './documentation/full_documentation.json';

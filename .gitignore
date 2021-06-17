@@ -7,6 +7,10 @@ coverage/
 # Dependency directories
 node_modules/
 
-# build files
+# Build files
 build/
 dist/
+
+# Editor files
+.vscode/
+.idea/s

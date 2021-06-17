@@ -10,6 +10,12 @@
   "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "no-console": "error"
+    "no-console": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }

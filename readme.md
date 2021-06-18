@@ -60,13 +60,12 @@ yarn install
 
 - Configure your database
 
-Create `.env` file by replicating `.env.example` and fill as per needs.
+```bash
+# Create `.env` file by replicating `.env.example` and fill as per needs.
+# To properly run this project, you will need to setup following variables to your `.env` file.
 
-To properly run this project, you will need to setup following variables to your `.env` file.
-
-`JWT_SECRET` -> Important\*
-
-> Secret from which your `jwt tokens` will be signed and verified.
+```
+> `JWT_SECRET` from which your `jwt tokens` will be signed and verified.
 
 ```bash
 # you can use this command in cli to easily generate random base64 string
@@ -76,16 +75,16 @@ node -e "console.log(require('crypto').randomBytes(64).toString('base64'))"
 
 | key              | default value |
 | ---------------- | ------------- |
-| DB_XXXX_HOST     | `localhost`   |
-| DB_XXXX_PORT     | `5432`        |
-| DB_XXXX_DATABASE | `template`    |
-| DB_XXXX_USER     | `admin`       |
-| DB_XXXX_PASS     | `root`        |
+| `DB_XXXX_HOST`     | `localhost`   |
+| `DB_XXXX_PORT`     | `5432`        |
+| `DB_XXXX_DATABASE` | `template`    |
+| `DB_XXXX_USER`     | `admin`       |
+| `DB_XXXX_PASS`     | `root`        |
 
-> Change `XXXX` with either one of these [`DEV`, `TEST`, `PROD`].
+> Change `XXXX` with either one of these `DEV`, `TEST`, `PROD`.
 > Depending on your environment.
 
-- Run pre-reqs scripts
+ - Run pre-reqs scripts
 
 ```bash
 # migrate base tables
@@ -95,9 +94,7 @@ yarn knex:migrate
 yarn knex:seed
 ```
 
-## Run Locally
-
-- Start the server
+- Run locally and start the server
 
 ```bash
 # start application with development environment

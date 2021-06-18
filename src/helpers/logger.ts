@@ -14,6 +14,7 @@ if (env.string('NODE_ENV') !== 'production') {
     ...config,
     prettyPrint: {
       colorize: true,
+      translateTime: 'yyyy-mm-dd HH:MM:ss',
     },
   });
 } else {

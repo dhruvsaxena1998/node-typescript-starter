@@ -1,4 +1,5 @@
 import { Knex } from 'knex';
+import { hash } from '../../helpers/hashing';
 
 export const seed = async (knex: Knex): Promise<void> => {
   // Deletes ALL existing entries
@@ -18,12 +19,13 @@ export const seed = async (knex: Knex): Promise<void> => {
   ]);
 
   //   USERS
+  const password = await hash('admin');
   await knex('users').insert([
     {
       role: 'AUTHENTICATED',
       username: 'admin',
       email: 'admin@template.io',
-      password: 'admin',
+      password,
       name: 'Admin',
     },
   ]);

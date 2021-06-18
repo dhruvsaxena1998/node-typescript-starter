@@ -9,6 +9,8 @@ const configs: IKnexConfig = {
   development: {
     client: 'postgresql',
     connection: {
+      host: env.string('DB_DEV_HOST', 'localhost'),
+      port: env.number('DB_DEV_PORT', 5432),
       database: env.string('DB_DEV_DATABASE', 'template'),
       user: env.string('DB_DEV_USER', 'postgres'),
       password: env.string('DB_DEV_PASS', 'root'),
@@ -24,6 +26,8 @@ const configs: IKnexConfig = {
   test: {
     client: 'postgresql',
     connection: {
+      host: env.string('DB_TEST_HOST', 'localhost'),
+      port: env.number('DB_TEST_PORT', 5432),
       database: env.string('DB_TEST_DATABASE', 'template_test'),
       user: env.string('DB_TEST_USER', 'postgres'),
       password: env.string('DB_TEST_PASS', 'root'),
@@ -39,6 +43,8 @@ const configs: IKnexConfig = {
   production: {
     client: 'postgresql',
     connection: {
+      host: env.string('DB_PROD_HOST', 'localhost'),
+      port: env.number('DB_PROD_PORT', 5432),
       database: env.string('DB_PROD_DATABASE', 'template'),
       user: env.string('DB_PROD_USER', 'username'),
       password: env.string('DB_PROD_PASS', 'password'),

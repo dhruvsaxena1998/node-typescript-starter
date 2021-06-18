@@ -1,6 +1,9 @@
 # Log
 *.log
 
+# Environment
+*.env
+
 # Test-Coverage files
 coverage/
 

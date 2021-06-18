@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import winston from 'winston';
+import { env } from './common';
 
 const logger = winston.createLogger({
   format: winston.format.json(),
@@ -17,7 +18,7 @@ const logger = winston.createLogger({
 // If we're not in production then log to the `console` with the format:
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
-if (process.env.NODE_ENV !== 'production') {
+if (env('NODE_ENV') !== 'production') {
   logger.add(
     new winston.transports.Console({
       format: winston.format.simple(),

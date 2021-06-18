@@ -1,27 +1,27 @@
-import { NextFunction, Request, Response } from 'express';
-import winston from 'winston';
-import { env } from './common';
+import pino from 'pino';
+import { env } from './env-helper';
 
-const logger = winston.createLogger({
-  format: winston.format.json(),
-  transports: [
-    //
-    // - Write all logs with level `error` and below to `error.log`
-    // - Write all logs with level `info` and below to `combined.log`
-    //
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
-  ],
-});
+import { Request, Response, NextFunction } from 'express';
 
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
-if (env('NODE_ENV') !== 'production') {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.simple(),
+const config: pino.LoggerOptions = {
+  level: env.string('LOG_LEVEL', 'debug'),
+  timestamp: env.bool('LOG_TIMESTAMP', false),
+};
+
+let logger: pino.BaseLogger;
+if (env.string('NODE_ENV') !== 'production') {
+  logger = pino({
+    ...config,
+    prettyPrint: {
+      colorize: true,
+    },
+  });
+} else {
+  logger = pino(
+    config,
+    pino.destination({
+      dest: 'debug.log',
+      sync: false,
     }),
   );
 }
@@ -33,11 +33,14 @@ const getResponseTime = (start: [number, number]) => {
   return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS;
 };
 
-// Api-Logger middleware
-export const apiLogger = (req: Request, res: Response, next: NextFunction): void => {
-  const start = process.hrtime();
-  logger.info(`[${req.method}] ${req.url} ${getResponseTime(start).toLocaleString()}ms`);
-  next();
+const apiLogger = (req: Request, res: Response, next: NextFunction): void => {
+  (async () => {
+    const start = process.hrtime();
+    const delta = getResponseTime(start).toLocaleString();
+    const message = `${req.method} ${req.url} (${delta} ms)`;
+    logger.debug(message);
+    next();
+  })();
 };
 
-export { logger };
+export { logger, apiLogger };

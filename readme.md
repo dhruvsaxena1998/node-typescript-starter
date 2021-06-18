@@ -13,11 +13,11 @@ Purpose of this template is to get started in minutes with nodejs and typscript 
 - Supported database - `Postgres` with knex query builder
 - Authentication and Authorization pre-setup
 - Middlewares
-    - Authorization (Role based)
-    - Ratelimiter
-    - Joi Validator
-    - Pino Logger
-    - ErrorHandler
+  - Authorization (Role based)
+  - Ratelimiter
+  - Joi Validator
+  - Pino Logger
+  - ErrorHandler
 - Redis / Memory cache supported
 - Swagger documentation
 - Testing with jest and supertest

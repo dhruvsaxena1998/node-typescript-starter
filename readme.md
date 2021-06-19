@@ -6,6 +6,16 @@ Purpose of this template is to get started in minutes with nodejs and typscript 
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
+## Documentation
+
+- [Features](https://github.com/dhruvsaxena1998/node-typescript-starter#features)
+- [Pre-reqs](https://github.com/dhruvsaxena1998/node-typescript-starter#pre-reqs)
+- [Getting stated](https://github.com/dhruvsaxena1998/node-typescript-starter#getting-started)
+  - [Clone and install deps]()
+  - [Configure environment]()
+  - [Running pre-reqs scripts]()
+  - [Starting up the server]()
+
 ## Features
 
 - 100% written in typescript
@@ -36,13 +46,13 @@ To build and run this app locally you will need a few things:
 
 ## Getting started
 
-- Clone the repository
+#### Clone the repository
 
 ```bash
 git clone https://github.com/dhruvsaxena1998/node-express-typescript.git --branch <branch-name> <project-name>
 ```
 
-- Install dependencies
+#### Install dependencies
 
 ```bash
 cd <project-name>
@@ -58,14 +68,25 @@ npm i -g yarn@latest
 yarn install
 ```
 
-- Configure your database
+####  Configure your environment
 
-```bash
-# Create `.env` file by replicating `.env.example` and fill as per needs.
-# To properly run this project, you will need to setup following variables to your `.env` file.
+Create `.env` file by replicating `.env.example` and fill as per needs.
+To properly run this project,
+you will need to setup following variables to your `.env` file.
 
-```
-> `JWT_SECRET` from which your `jwt tokens` will be signed and verified.
+- Server
+
+| key           | default value | description                   |
+| ------------- | ------------- | ----------------------------- |
+| `SERVER_HOST` | `localhost`   | host on which server will run |
+| `SERVER_PORT` | `5000`        | port on which server will run |
+
+- JWT
+
+| key           | default value | description                                          |
+| ------------- | ------------- | ---------------------------------------------------- |
+| `JWT_EXPIRES` | `30d`         | expiry for jwt-tokens, eg. `1d`, `10d`               |
+| `JWT_SECRET`  | `a606f398-51e9-4ba8-b8bb-02326f666bdf`   | secret from which tokens will be signed and verified |
 
 ```bash
 # you can use this command in cli to easily generate random base64 string
@@ -73,18 +94,25 @@ yarn install
 node -e "console.log(require('crypto').randomBytes(64).toString('base64'))"
 ```
 
-| key              | default value |
-| ---------------- | ------------- |
+- Database credentials
+
+| key                | default value |
+| ------------------ | ------------- |
 | `DB_XXXX_HOST`     | `localhost`   |
 | `DB_XXXX_PORT`     | `5432`        |
 | `DB_XXXX_DATABASE` | `template`    |
 | `DB_XXXX_USER`     | `admin`       |
 | `DB_XXXX_PASS`     | `root`        |
 
-> Change `XXXX` with either one of these `DEV`, `TEST`, `PROD`.
-> Depending on your environment.
+Change `XXXX` with either one of these `DEV`, `TEST`, `PROD`. Depending on your environment.
 
- - Run pre-reqs scripts
+- Logger
+
+| key         | default value | description           |
+| ----------- | ------------- | --------------------- |
+| `LOG_LEVEL` | `debug`       | set default log-level |
+
+#### Run pre-reqs scripts
 
 ```bash
 # migrate base tables
@@ -94,7 +122,7 @@ yarn knex:migrate
 yarn knex:seed
 ```
 
-- Run locally and start the server
+#### Run locally and start the server
 
 ```bash
 # start application with development environment

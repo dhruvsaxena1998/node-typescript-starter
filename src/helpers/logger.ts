@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 
 const config: pino.LoggerOptions = {
   level: env.string('LOG_LEVEL', 'debug'),
-  timestamp: env.bool('LOG_TIMESTAMP', false),
+  timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`,
 };
 
 let logger: pino.BaseLogger;

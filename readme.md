@@ -46,13 +46,13 @@ To build and run this app locally you will need a few things:
 
 ## Getting started
 
-#### Clone the repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/dhruvsaxena1998/node-express-typescript.git --branch <branch-name> <project-name>
 ```
 
-#### Install dependencies
+### Install dependencies
 
 ```bash
 cd <project-name>
@@ -60,7 +60,7 @@ cd <project-name>
 
 ```bash
 # yarn is recommended
-# install yarn if not already installed
+# install yarn if not installed already
 npm i -g yarn@latest
 ```
 
@@ -68,7 +68,7 @@ npm i -g yarn@latest
 yarn install
 ```
 
-#### Configure your environment
+### Configure your environment
 
 Create `.env` file by replicating `.env.example` and fill as per needs.
 To properly run this project,
@@ -104,7 +104,26 @@ node -e "console.log(require('crypto').randomBytes(64).toString('base64'))"
 | `DB_XXXX_USER`     | `admin`       |
 | `DB_XXXX_PASS`     | `root`        |
 
-Change `XXXX` with either one of these `DEV`, `TEST`, `PROD`. Depending on your environment.
+Change `XXXX` with either one of these `DEV`, `TEST`, `PROD`.
+
+Depending on your environment or you can use all at once as-well
+
+```bash
+# Development
+DB_DEV_DATABASE=template
+DB_DEV_USER=postgres
+DB_DEV_PASS=root
+
+# TEST
+DB_TEST_DATABASE=template_test
+DB_TEST_USER=postgres
+DB_TEST_USER=root
+
+# Production
+DB_PROD_DATABASE=template
+DB_PROD_USER=username
+DB_PROD_PASS=password
+```
 
 - Logger
 
@@ -112,7 +131,7 @@ Change `XXXX` with either one of these `DEV`, `TEST`, `PROD`. Depending on your 
 | ----------- | ------------- | --------------------- |
 | `LOG_LEVEL` | `debug`       | set default log-level |
 
-#### Run pre-reqs scripts
+### Run pre-reqs scripts
 
 ```bash
 # migrate base tables
@@ -122,7 +141,7 @@ yarn knex:migrate
 yarn knex:seed
 ```
 
-#### Run locally and start the server
+### Run locally and start the server
 
 ```bash
 # start application with development environment

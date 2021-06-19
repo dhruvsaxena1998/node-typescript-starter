@@ -8,6 +8,12 @@ export interface IPayload {
   iat?: number;
 }
 
+export const issueTokenV2 = (payload: (string | number)[]): string => {
+  return jsonwebtoken.sign(payload, jwt.secret, {
+    expiresIn: jwt.expires,
+  });
+};
+
 export const issueToken = (payload: IPayload): string => {
   return jsonwebtoken.sign(payload, jwt.secret, {
     expiresIn: jwt.expires,

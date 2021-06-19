@@ -11,10 +11,10 @@ Purpose of this template is to get started in minutes with nodejs and typscript 
 - [Features](https://github.com/dhruvsaxena1998/node-typescript-starter#features)
 - [Pre-reqs](https://github.com/dhruvsaxena1998/node-typescript-starter#pre-reqs)
 - [Getting stated](https://github.com/dhruvsaxena1998/node-typescript-starter#getting-started)
-  - [Clone and install deps]()
-  - [Configure environment]()
-  - [Running pre-reqs scripts]()
-  - [Starting up the server]()
+  - [Clone and install deps](https://github.com/dhruvsaxena1998/node-typescript-starter#clone-the-repository)
+  - [Configure environment](https://github.com/dhruvsaxena1998/node-typescript-starter#configure-your-environment)
+  - [Running pre-reqs scripts](https://github.com/dhruvsaxena1998/node-typescript-starter#configure-your-environment)
+  - [Starting up the server](https://github.com/dhruvsaxena1998/node-typescript-starter#configure-your-environment)
 
 ## Features
 
@@ -68,7 +68,7 @@ npm i -g yarn@latest
 yarn install
 ```
 
-####  Configure your environment
+#### Configure your environment
 
 Create `.env` file by replicating `.env.example` and fill as per needs.
 To properly run this project,
@@ -83,10 +83,10 @@ you will need to setup following variables to your `.env` file.
 
 - JWT
 
-| key           | default value | description                                          |
-| ------------- | ------------- | ---------------------------------------------------- |
-| `JWT_EXPIRES` | `30d`         | expiry for jwt-tokens, eg. `1d`, `10d`               |
-| `JWT_SECRET`  | `a606f398-51e9-4ba8-b8bb-02326f666bdf`   | secret from which tokens will be signed and verified |
+| key           | default value                          | description                                          |
+| ------------- | -------------------------------------- | ---------------------------------------------------- |
+| `JWT_EXPIRES` | `30d`                                  | expiry for jwt-tokens, eg. `1d`, `10d`               |
+| `JWT_SECRET`  | `a606f398-51e9-4ba8-b8bb-02326f666bdf` | secret from which tokens will be signed and verified |
 
 ```bash
 # you can use this command in cli to easily generate random base64 string

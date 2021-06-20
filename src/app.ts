@@ -5,9 +5,8 @@ import helmet from 'helmet';
 import { router } from './routes';
 import { bootstrap } from './config/bootstrap';
 
-import { Authenticate, Authorize } from './middlewares/auth';
+import { Authenticate } from './middlewares/auth';
 import { RateLimiter } from './middlewares/rate-limiter';
-import { ROLE } from './@types';
 
 import swaggerUI from 'swagger-ui-express';
 import full_documentation from './documentation/full_documentation.json';

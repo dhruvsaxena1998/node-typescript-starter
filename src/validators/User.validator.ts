@@ -15,7 +15,7 @@ export const RegisterValidator = async (req: Request, res: Response, next: NextF
     await schema.validateAsync(req.body);
     next();
   } catch (err) {
-    next(buildErrorObject(err.details[0]));
+    next(buildErrorObject(err));
   }
 };
 
@@ -28,6 +28,6 @@ export const LoginValidator = async (req: Request, res: Response, next: NextFunc
     await schema.validateAsync(req.body);
     next();
   } catch (err) {
-    next(buildErrorObject(err.details[0]));
+    next(buildErrorObject(err));
   }
 };

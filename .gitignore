@@ -8,12 +8,12 @@
 coverage/
 
 # Dependency directories
-node_modules/
+node_modules
 
 # Build files
 build/
 dist/
 
 # Editor files
-.vscode/
-.idea/s
+.vscode
+.idea

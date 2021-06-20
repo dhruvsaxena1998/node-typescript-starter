@@ -1,8 +1,4 @@
-export enum ROLE {
-  ADMINSTRATOR = 'ADMINSTRATOR',
-  AUTHENTICATED = 'AUTHENTICATED',
-  PUBLIC = 'PUBLIC',
-}
+import { ROLE } from './index';
 
 export interface UserCreateDto {
   username: string;

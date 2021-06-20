@@ -2,17 +2,21 @@ import { UserService, service } from '../services/User.service';
 
 // Types
 import { Request, Response, NextFunction } from 'express';
-import { UserRegisterRequestDto, UserLoginRequestDto } from './../@types/User';
+import { UserRegisterRequestDto, UserLoginRequestDto } from '../@types/User.types';
 
 export class UserController {
-  constructor(private readonly service: UserService) {}
+  constructor(private readonly _service: UserService) {
+    // this binding
+    this.login = this.login.bind(this);
+    this.me = this.me.bind(this);
+  }
 
   public async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { email, username, password, name, image } = req.body;
       const dto: UserRegisterRequestDto = { email, username, password, name, image };
 
-      const data = await this.service.register(dto);
+      const data = await this._service.register(dto);
       res.status(201).send(data);
     } catch (err) {
       return next(err);
@@ -23,9 +27,18 @@ export class UserController {
     try {
       const { identifier, password } = req.body;
       const dto: UserLoginRequestDto = { identifier, password };
-
-      const data = await this.service.login(dto);
+      const data = await this._service.login(dto);
       res.status(200).send(data);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  public async me(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      // eslint-disable-next-line no-console
+      console.log('req.user', req.user);
+      res.status(200).send(req.user);
     } catch (err) {
       return next(err);
     }

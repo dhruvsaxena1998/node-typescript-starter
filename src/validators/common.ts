@@ -1,10 +1,10 @@
 import { ApiError } from '../helpers/apiErrorHandler';
 
-import { Error } from '../@types/Error';
+// Types
+import { ValidationError, ValidationErrorItem } from 'joi';
 
-interface ValidatorError extends Error {
-  context: { key?: string; label?: string };
-}
-
-export const buildErrorObject = ({ message, path, type, context: { key } }: ValidatorError): ApiError =>
-  ApiError.badRequest({ message, path, type, key });
+export const buildErrorObject = (err: unknown): ApiError => {
+  const { details } = err as ValidationError;
+  const { message, path, type, context }: ValidationErrorItem = details[0];
+  return ApiError.badRequest({ message, path, type, key: context?.key });
+};

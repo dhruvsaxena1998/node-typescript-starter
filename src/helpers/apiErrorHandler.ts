@@ -1,6 +1,8 @@
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import { logger } from './logger';
+
+// Types
 import { Error } from '../@types/Error';
+import { Request, Response, NextFunction } from 'express';
 
 export class ApiError {
   public statusCode: number;
@@ -53,12 +55,13 @@ export class ApiError {
   }
 }
 
-export const ErrorHandler = (error: ErrorRequestHandler, req: Request, res: Response, next: NextFunction): void => {
+export const ErrorHandler = (error: Error, req: Request, res: Response, next: NextFunction): void => {
   if (error instanceof ApiError) {
     res.status(error.statusCode).send(error.message);
     return;
   }
 
-  res.status(500).send(error);
+  logger.error(error);
+  res.status(500).send(error.message);
   next();
 };

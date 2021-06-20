@@ -3,21 +3,25 @@ import { UserRepository, repository } from '../repositories/User.repository';
 // Helpers
 import { ApiError } from '../helpers/apiErrorHandler';
 import { hash, compare } from '../helpers/hashing';
-import { issueTokenV2 } from '../helpers/jsonwebtoken';
+import { issueToken } from '../helpers/jsonwebtoken';
 import { sanitizeEntity } from '../helpers/sanitize';
 
 // Types
+import { ROLE } from '../@types';
 import {
-  ROLE,
   AuthorizedResponse,
   UserCreateDto,
   SanitizedUserData,
   UserLoginRequestDto,
   UserRegisterRequestDto,
-} from '../@types/User';
+} from '../@types/User.types';
 
 export class UserService {
-  constructor(private readonly repository: UserRepository) {}
+  constructor(private readonly _repository: UserRepository) {
+    // this bind
+    this.login = this.login.bind(this);
+    this.findOne = this.findOne.bind(this);
+  }
 
   public async register(dto: UserRegisterRequestDto): Promise<AuthorizedResponse> {
     dto.password = await hash(dto.password);
@@ -27,15 +31,17 @@ export class UserService {
       is_verified: true,
     };
 
-    const user = await this.repository.create(body);
-    const token = issueTokenV2([user.user_id, user.role]);
+    const user = await this._repository.create(body);
+    const token = issueToken({
+      id: user.user_id,
+      role: user.role,
+    });
 
     return { token, user: sanitizeEntity(user, 'users') as SanitizedUserData };
   }
 
   public async login(dto: UserLoginRequestDto): Promise<AuthorizedResponse> {
-    const user = await this.repository.findOneWithIdentifier(dto.identifier);
-
+    const user = await this._repository.findOneWithIdentifier(dto.identifier);
     // Check if the user exists.
     if (!user)
       throw ApiError.badRequest({
@@ -55,9 +61,17 @@ export class UserService {
         path: ['identifier', 'password'],
       });
 
-    const token = issueTokenV2([user.user_id, user.role]);
+    const token = issueToken({
+      id: user.user_id,
+      role: user.role,
+    });
 
     return { token, user: sanitizeEntity(user, 'users') as SanitizedUserData };
+  }
+
+  public async findOne(id: number | string): Promise<SanitizedUserData> {
+    const user = await this._repository.findOne({ user_id: id });
+    return sanitizeEntity(user, 'users') as SanitizedUserData;
   }
 }
 

@@ -18,8 +18,8 @@ import {
 
 export class UserService {
   constructor(private readonly _repository: UserRepository) {
-    // this bind
     this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
     this.findOne = this.findOne.bind(this);
   }
 

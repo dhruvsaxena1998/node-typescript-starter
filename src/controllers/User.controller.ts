@@ -6,8 +6,8 @@ import { UserRegisterRequestDto, UserLoginRequestDto } from '../@types/User.type
 
 export class UserController {
   constructor(private readonly _service: UserService) {
-    // this binding
     this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
     this.me = this.me.bind(this);
   }
 
@@ -27,6 +27,7 @@ export class UserController {
     try {
       const { identifier, password } = req.body;
       const dto: UserLoginRequestDto = { identifier, password };
+
       const data = await this._service.login(dto);
       res.status(200).send(data);
     } catch (err) {

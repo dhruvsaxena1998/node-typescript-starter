@@ -13,6 +13,7 @@ import { ROLE } from '../@types';
 import {
   AuthorizedResponse,
   UserCreateDto,
+  UserUpdateDto,
   SanitizedUserData,
   UserLoginRequestDto,
   UserRegisterRequestDto,
@@ -94,8 +95,13 @@ export class UserService {
     return { token, user: sanitizeEntity(user, 'users') as SanitizedUserData };
   };
 
-  public findOne = async (id: number | string): Promise<SanitizedUserData> => {
-    const user = await this._repository.findOne({ user_id: id });
+  public findOne = async (id: number): Promise<SanitizedUserData> => {
+    const user = await this._repository.findOne(id);
+    return sanitizeEntity(user, 'users') as SanitizedUserData;
+  };
+
+  public findOneAndUpdate = async (id: number, dto: UserUpdateDto): Promise<SanitizedUserData> => {
+    const user = await this._repository.findOneAndUpdate(id, dto);
     return sanitizeEntity(user, 'users') as SanitizedUserData;
   };
 }

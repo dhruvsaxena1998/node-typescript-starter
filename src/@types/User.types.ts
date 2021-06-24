@@ -11,6 +11,11 @@ export interface UserCreateDto {
   confirmation_token?: string;
 }
 
+export interface UserUpdateDto {
+  name?: string;
+  image?: string;
+}
+
 export type UserRegisterRequestDto = Omit<UserCreateDto, 'role' | 'confirmed' | 'confirmation_token'>;
 
 export interface UserLoginRequestDto {

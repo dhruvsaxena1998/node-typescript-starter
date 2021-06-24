@@ -1,4 +1,4 @@
-import { UserSanitizedResponse } from '../UserTypes';
+import { UserSanitizedResponse } from '../User.types';
 
 declare module 'express' {
   export interface Request {

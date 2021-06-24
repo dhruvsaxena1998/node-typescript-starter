@@ -5,7 +5,7 @@ import { controller } from '../controllers/User.controller';
 
 // Middlewares
 import { Authorize } from '../middlewares/auth';
-import { RegisterValidator, LoginValidator } from '../middlewares/validators/User.validator';
+import { RegisterValidator, LoginValidator, UpdateValidator } from '../middlewares/validators/User.validator';
 
 // Types
 import { ROLE } from '../@types';
@@ -28,5 +28,12 @@ UserRouter.post('/register', [RegisterValidator], controller.register);
  * @description Returns user's object. Expects JWT token
  */
 UserRouter.get('/me', [Authorize([ROLE.ADMINSTRATOR, ROLE.AUTHENTICATED])], controller.me);
+
+/**
+ * @route   /users
+ * @method  PUT
+ * @description Updates logged-in user.
+ */
+UserRouter.put('/', [Authorize([ROLE.ADMINSTRATOR, ROLE.AUTHENTICATED]), UpdateValidator], controller.update);
 
 export { UserRouter };

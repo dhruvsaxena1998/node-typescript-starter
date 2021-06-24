@@ -27,6 +27,7 @@ export const seed = async (knex: Knex): Promise<void> => {
       email: 'admin@template.io',
       password,
       name: 'Admin',
+      confirmed: true,
     },
   ]);
 };

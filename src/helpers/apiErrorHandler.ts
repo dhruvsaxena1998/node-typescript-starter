@@ -53,6 +53,17 @@ export class ApiError {
     logger.error(message);
     return new ApiError(500, message);
   }
+
+  public static emptyBody(
+    message: Error = {
+      message: 'Request body is empty',
+      type: 'err.body-null',
+      key: 'req.body',
+    },
+  ): ApiError {
+    logger.error(message);
+    return new ApiError(400, message);
+  }
 }
 
 export const ErrorHandler = (error: Error, req: Request, res: Response, next: NextFunction): void => {

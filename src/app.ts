@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { router } from './routes';
-import { bootstrap } from './config/bootstrap';
+import { bootstrap } from './config/functions/bootstrap';
 
 import { Authenticate } from './middlewares/auth';
 

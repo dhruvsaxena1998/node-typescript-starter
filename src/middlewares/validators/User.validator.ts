@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { buildErrorObject } from './common';
+import { buildErrorObject } from './util';
 
 // Types
 import { Request, Response, NextFunction } from 'express';

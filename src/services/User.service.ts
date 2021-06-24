@@ -4,7 +4,7 @@ import { env } from '../helpers/env-helper';
 
 // Helpers
 import { ApiError } from '../helpers/apiErrorHandler';
-import { hash, compare } from '../helpers/crypt';
+import { hash, compare } from '../helpers/bcrypt';
 import { issueToken } from '../helpers/jsonwebtoken';
 import { sanitizeEntity } from '../helpers/sanitize';
 

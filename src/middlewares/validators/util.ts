@@ -1,4 +1,4 @@
-import { ApiError } from '../helpers/apiErrorHandler';
+import { ApiError } from '../../helpers/apiErrorHandler';
 
 // Types
 import { ValidationError, ValidationErrorItem } from 'joi';

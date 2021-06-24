@@ -3,9 +3,12 @@ const UserRouter = Router();
 
 import { controller } from '../controllers/User.controller';
 
-import { ROLE } from '../@types';
+// Middlewares
 import { Authorize } from '../middlewares/auth';
-import { RegisterValidator, LoginValidator } from '../validators/User.validator';
+import { RegisterValidator, LoginValidator } from '../middlewares/validators/User.validator';
+
+// Types
+import { ROLE } from '../@types';
 
 /**
  * @route   /users/login

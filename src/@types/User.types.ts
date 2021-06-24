@@ -7,10 +7,11 @@ export interface UserCreateDto {
   role: ROLE;
   name?: string;
   image?: string;
-  is_verified: boolean;
+  confirmed: boolean;
+  confirmation_token?: string;
 }
 
-export type UserRegisterRequestDto = Omit<UserCreateDto, 'role' | 'is_verified'>;
+export type UserRegisterRequestDto = Omit<UserCreateDto, 'role' | 'confirmed' | 'confirmation_token'>;
 
 export interface UserLoginRequestDto {
   identifier: string;
@@ -24,13 +25,16 @@ export interface UserData {
   email: string;
   name?: string;
   role: string;
-  is_verified: boolean;
   image?: string;
+  confirmed: boolean;
+  blocked?: boolean;
+  confirmation_token?: string;
+  reset_password_token?: string;
   created_at: Date;
   updated_at: Date;
 }
 
-export type SanitizedUserData = Omit<UserData, 'password'>;
+export type SanitizedUserData = Omit<UserData, 'password' | 'confirmation_token' | 'reset_password_token'>;
 
 export interface AuthorizedResponse {
   token: string;

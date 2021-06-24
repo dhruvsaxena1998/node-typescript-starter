@@ -1,8 +1,10 @@
+import crypto from 'crypto';
 import { UserRepository, repository } from '../repositories/User.repository';
+import { env } from '../helpers/env-helper';
 
 // Helpers
 import { ApiError } from '../helpers/apiErrorHandler';
-import { hash, compare } from '../helpers/hashing';
+import { hash, compare } from '../helpers/crypt';
 import { issueToken } from '../helpers/jsonwebtoken';
 import { sanitizeEntity } from '../helpers/sanitize';
 
@@ -17,19 +19,21 @@ import {
 } from '../@types/User.types';
 
 export class UserService {
-  constructor(private readonly _repository: UserRepository) {
-    this.login = this.login.bind(this);
-    this.register = this.register.bind(this);
-    this.findOne = this.findOne.bind(this);
-  }
+  constructor(private readonly _repository: UserRepository) {}
 
-  public async register(dto: UserRegisterRequestDto): Promise<AuthorizedResponse> {
-    dto.password = await hash(dto.password);
+  public register = async (dto: UserRegisterRequestDto): Promise<AuthorizedResponse> => {
     const body: UserCreateDto = {
       ...dto,
       role: ROLE.AUTHENTICATED, // set a default hard-coded role, for security purposes
-      is_verified: true,
+      confirmed: true,
     };
+    body.password = await hash(dto.password);
+
+    // If email_verification is enabled set confirmation token and confirmed default to false
+    if (env.boolean('user.email_confirmation', false, true)) {
+      body.confirmation_token = crypto.randomBytes(20).toString('hex');
+      body.confirmed = false;
+    }
 
     const user = await this._repository.create(body);
     const token = issueToken({
@@ -38,10 +42,12 @@ export class UserService {
     });
 
     return { token, user: sanitizeEntity(user, 'users') as SanitizedUserData };
-  }
+  };
 
-  public async login(dto: UserLoginRequestDto): Promise<AuthorizedResponse> {
+  public login = async (dto: UserLoginRequestDto): Promise<AuthorizedResponse> => {
+    // Find user by username or email
     const user = await this._repository.findOneWithIdentifier(dto.identifier);
+
     // Check if the user exists.
     if (!user)
       throw ApiError.badRequest({
@@ -61,18 +67,37 @@ export class UserService {
         path: ['identifier', 'password'],
       });
 
+    // Check if user is confirmed
+    if (!user.confirmed)
+      throw ApiError.badRequest({
+        key: 'confirmed',
+        message: 'Please confirm your mail!',
+        type: 'err.not-confirmed',
+        path: ['confirmed'],
+      });
+
+    // Check if user is blocked
+    if (user.blocked)
+      throw ApiError.badRequest({
+        key: 'blocked',
+        message: 'You are blocked!',
+        type: 'err.blocked',
+        path: ['blocked'],
+      });
+
+    // Everything seems fine, generate token and return user data
     const token = issueToken({
       id: user.user_id,
       role: user.role,
     });
 
     return { token, user: sanitizeEntity(user, 'users') as SanitizedUserData };
-  }
+  };
 
-  public async findOne(id: number | string): Promise<SanitizedUserData> {
+  public findOne = async (id: number | string): Promise<SanitizedUserData> => {
     const user = await this._repository.findOne({ user_id: id });
     return sanitizeEntity(user, 'users') as SanitizedUserData;
-  }
+  };
 }
 
 export const service = new UserService(repository);

@@ -5,13 +5,9 @@ import { Request, Response, NextFunction } from 'express';
 import { UserRegisterRequestDto, UserLoginRequestDto } from '../@types/User.types';
 
 export class UserController {
-  constructor(private readonly _service: UserService) {
-    this.login = this.login.bind(this);
-    this.register = this.register.bind(this);
-    this.me = this.me.bind(this);
-  }
+  constructor(private readonly _service: UserService) {}
 
-  public async register(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { email, username, password, name, image } = req.body;
       const dto: UserRegisterRequestDto = { email, username, password, name, image };
@@ -21,9 +17,9 @@ export class UserController {
     } catch (err) {
       return next(err);
     }
-  }
+  };
 
-  public async login(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { identifier, password } = req.body;
       const dto: UserLoginRequestDto = { identifier, password };
@@ -33,17 +29,15 @@ export class UserController {
     } catch (err) {
       return next(err);
     }
-  }
+  };
 
-  public async me(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public me = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      // eslint-disable-next-line no-console
-      console.log('req.user', req.user);
       res.status(200).send(req.user);
     } catch (err) {
       return next(err);
     }
-  }
+  };
 }
 
 export const controller = new UserController(service);

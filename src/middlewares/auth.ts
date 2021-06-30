@@ -6,6 +6,11 @@ import { service } from '../services/User.service';
 import { Request, Response, NextFunction } from 'express';
 import { ROLE } from '../@types';
 
+/**
+ * @description
+ *  Add user data or null to request { req.user }
+ * @param req.user - SanitizedUserData
+ */
 export const Authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const authHeaders = req.headers['authorization'];

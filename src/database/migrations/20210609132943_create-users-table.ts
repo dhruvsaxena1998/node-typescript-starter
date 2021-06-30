@@ -8,8 +8,13 @@ export const up = async (knex: Knex): Promise<void> => {
     table.text('password').notNullable();
     table.string('name').nullable();
     table.string('role').unsigned().notNullable();
-    table.boolean('is_verified').defaultTo(false);
     table.text('image').nullable();
+
+    table.boolean('confirmed').defaultTo(false);
+    table.boolean('blocked').defaultTo(false);
+    table.string('confirmation_token').nullable().defaultTo('');
+    table.string('reset_password_token').nullable().defaultTo('');
+
     table.timestamps(true, true);
 
     table.foreign('role').references('name').inTable('roles');

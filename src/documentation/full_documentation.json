@@ -65,7 +65,7 @@
     "schemas": {
       "user": {
         "type": "object",
-        "required": ["username", "email", "role", "is_verified"],
+        "required": ["username", "email", "role"],
         "properties": {
           "user_id": {
             "type": "integer",
@@ -91,9 +91,13 @@
             "type": "string",
             "default": "Admin"
           },
-          "is_verified": {
+          "confirmed": {
             "type": "boolean",
             "default": true
+          },
+          "blocked": {
+            "type": "boolean",
+            "default": false
           },
           "image": {
             "type": "string",

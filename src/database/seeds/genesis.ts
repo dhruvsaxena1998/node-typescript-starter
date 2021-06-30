@@ -1,5 +1,5 @@
 import { Knex } from 'knex';
-import { hash } from '../../helpers/hashing';
+import { hash } from '../../helpers/bcrypt';
 
 export const seed = async (knex: Knex): Promise<void> => {
   // Deletes ALL existing entries
@@ -27,6 +27,7 @@ export const seed = async (knex: Knex): Promise<void> => {
       email: 'admin@template.io',
       password,
       name: 'Admin',
+      confirmed: true,
     },
   ]);
 };

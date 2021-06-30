@@ -1,10 +1,16 @@
-import Joi from 'joi';
-import { buildErrorObject } from './common';
+import Joi, { ValidationError } from 'joi';
+import isEmpty from 'lodash/isEmpty';
+
+// Helpers
+import { buildErrorObject } from './util';
+import { ApiError } from '../../helpers/apiErrorHandler';
+
 // Types
 import { Request, Response, NextFunction } from 'express';
 
 export const RegisterValidator = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    if (isEmpty(req.body)) return next(ApiError.emptyBody());
     const schema = Joi.object({
       username: Joi.string().required(),
       email: Joi.string().email().required(),
@@ -15,12 +21,14 @@ export const RegisterValidator = async (req: Request, res: Response, next: NextF
     await schema.validateAsync(req.body);
     next();
   } catch (err) {
-    next(buildErrorObject(err.details[0]));
+    if (err instanceof ValidationError) return next(buildErrorObject(err));
+    return next(err);
   }
 };
 
 export const LoginValidator = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    if (isEmpty(req.body)) return next(ApiError.emptyBody());
     const schema = Joi.object({
       identifier: Joi.string().required(),
       password: Joi.string().required(),
@@ -28,6 +36,7 @@ export const LoginValidator = async (req: Request, res: Response, next: NextFunc
     await schema.validateAsync(req.body);
     next();
   } catch (err) {
-    next(buildErrorObject(err.details[0]));
+    if (err instanceof ValidationError) return next(buildErrorObject(err));
+    return next(err);
   }
 };

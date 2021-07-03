@@ -1,10 +1,9 @@
 import nodemailer, { SentMessageInfo, SendMailOptions } from 'nodemailer';
-
 // Helpers
-import { env } from './env-helper';
+import { env } from '../env-helper';
 
 // Types
-import { EmailOptions } from '../@types';
+import { EmailOptions } from '../../@types';
 
 const transporter = nodemailer.createTransport({
   host: env.string('email.host', 'smtp.gmail.com', true),

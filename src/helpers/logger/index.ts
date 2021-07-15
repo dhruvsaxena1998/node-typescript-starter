@@ -1,5 +1,6 @@
 import pino from 'pino';
-import { env } from './env-helper';
+import { env } from '../env-helper';
+import { getResponseTime } from './utils';
 
 import { Request, Response, NextFunction } from 'express';
 
@@ -27,21 +28,14 @@ if (env.string('NODE_ENV') !== 'production') {
   );
 }
 
-const getResponseTime = (start: [number, number]) => {
-  const NS_PER_SEC = 1e9; //  convert to nanoseconds
-  const NS_TO_MS = 1e6; // convert to milliseconds
-  const diff = process.hrtime(start);
-  return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS;
-};
-
 const apiLogger = (req: Request, res: Response, next: NextFunction): void => {
   (async () => {
-    const start = process.hrtime();
-    const delta = getResponseTime(start).toLocaleString();
+    const delta = getResponseTime(process.hrtime()).toLocaleString();
     const message = `${req.method} ${req.url} (${delta} ms)`;
     logger.debug(message);
     next();
   })();
 };
 
+//! Do-not rename logger and apiLogger
 export { logger, apiLogger };

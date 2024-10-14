@@ -6,7 +6,10 @@ import ENV from "./env";
 const port = ENV.SERVER_PORT;
 
 // eslint-disable-next-line no-console
-console.log(`Server is running on port http://localhost:${port}`);
+console.table({
+  Server: `http://localhost:${port}`,
+  Documentation: `http://localhost:${port}/reference`,
+});
 
 serve({
   fetch: app.fetch,

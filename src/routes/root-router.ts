@@ -8,7 +8,7 @@ const RootRouter = createRouter().openapi(
   createRoute({
     method: "get",
     path: "/",
-    tags: ["index"],
+    tags: ["Root"],
     responses: {
       [HTTPStatusCodes.OK]: jsonContent(z.object({
         message: z.string(),

@@ -6,7 +6,9 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "@/*": ["./src/*"]
+      "~/*": ["./*"],
+      "@lib/*": ["./src/lib/*"],
+      "@routes/*": ["./src/routes/*"]
     },
     "types": [
       "node"

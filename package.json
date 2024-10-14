@@ -1,5 +1,7 @@
 {
   "name": "template",
+  "type": "module",
+  "version": "0.1.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "lint": "eslint ./src",
@@ -8,6 +10,7 @@
   "dependencies": {
     "@hono/node-server": "^1.13.2",
     "@hono/zod-openapi": "^0.16.4",
+    "@scalar/hono-api-reference": "^0.5.153",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "hono": "^4.6.4",

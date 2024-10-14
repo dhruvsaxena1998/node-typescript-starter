@@ -30,4 +30,6 @@ try {
   }
 }
 
+// eslint-disable-next-line ts/ban-ts-comment
+// @ts-expect-error
 export default ENV;

@@ -1,14 +1,11 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
+import createApp from "@lib/utils/create-app";
+import configureOpenApiSpec from "@lib/utils/openapi/configure-openapi-spec";
 
-import { notFound, onError } from "@/lib/middlewares";
+import RootRouter from "./routes";
 
-const app = new OpenAPIHono();
+const app = createApp();
+configureOpenApiSpec(app);
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
-});
-
-app.notFound(notFound);
-app.onError(onError);
+app.route("/", RootRouter);
 
 export { app };

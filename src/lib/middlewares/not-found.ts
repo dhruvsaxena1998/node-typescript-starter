@@ -1,6 +1,6 @@
 import type { NotFoundHandler } from "hono";
 
-import { NOT_FOUND } from "@/lib/constants/http-status-codes";
+import { NOT_FOUND } from "../constants/http-status-codes";
 
 export const notFound: NotFoundHandler = (c) => {
   return c.json({

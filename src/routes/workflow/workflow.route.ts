@@ -11,8 +11,7 @@ export const post = createRoute({
   responses: {
     [OK]: jsonContent(
       z.object({
-        response: z.object({
-        }),
+        response: z.object({}),
       }),
       "Workflow Post",
     ),
@@ -25,8 +24,7 @@ export const get = createRoute({
   responses: {
     [OK]: jsonContent(
       z.object({
-        response: z.object({
-        }),
+        response: z.object({}),
       }),
       "Workflow get",
     ),

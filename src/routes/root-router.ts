@@ -10,9 +10,12 @@ const RootRouter = createRouter().openapi(
     path: "/",
     tags: ["Root"],
     responses: {
-      [HTTPStatusCodes.OK]: jsonContent(z.object({
-        message: z.string(),
-      }), "Root Path"),
+      [HTTPStatusCodes.OK]: jsonContent(
+        z.object({
+          message: z.string(),
+        }),
+        "Root Path",
+      ),
     },
   }),
   (c) => {

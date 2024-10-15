@@ -15,10 +15,7 @@ app.use(prettyJSON());
 
 configureOpenApiSpec(app);
 
-const routes = [
-  RootRouter,
-  WorkflowRouter,
-];
+const routes = [RootRouter, WorkflowRouter];
 
 routes.forEach((route) => {
   app.route("/", route);

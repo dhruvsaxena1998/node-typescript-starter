@@ -12,7 +12,9 @@ const EnvSchema = z.object({
 
   SERVER_PORT: z.coerce.number().default(3000),
 
-  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("debug"),
+  LOG_LEVEL: z
+    .enum(["fatal", "error", "warn", "info", "debug", "trace"])
+    .default("debug"),
 
   DB_HOST: z.string().default("localhost"),
   DB_PORT: z.coerce.number().default(3306),

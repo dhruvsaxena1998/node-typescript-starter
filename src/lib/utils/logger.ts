@@ -7,8 +7,6 @@ import pino from "pino";
 import pretty from "pino-pretty";
 import { createStream } from "rotating-file-stream";
 
-import { __dirname } from "./common";
-
 const logFileStream = createStream("combined.log", {
   interval: "1d",
   compress: "gzip",
@@ -29,14 +27,20 @@ const streams = [
 
 export function PinoLogger() {
   return logger({
-    pino: pino({
-      level: ENV.LOG_LEVEL,
-      name: "request-logs",
-    }, pino.multistream(streams)),
+    pino: pino(
+      {
+        level: ENV.LOG_LEVEL,
+        name: "request-logs",
+      },
+      pino.multistream(streams),
+    ),
     http: {
       reqId: () => randomUUID(),
     },
   });
 }
 
-export const Logger = pino({ name: "app-logs", level: ENV.LOG_LEVEL }, pino.multistream(streams));
+export const Logger = pino(
+  { name: "app-logs", level: ENV.LOG_LEVEL },
+  pino.multistream(streams),
+);

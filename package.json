@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "fmt": "prettier --write ./src"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.2",

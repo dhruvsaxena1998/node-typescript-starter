@@ -18,4 +18,18 @@ export const post = createRoute({
     ),
   },
 });
+export const get = createRoute({
+  path: "/workflow",
+  method: "get",
+  tags,
+  responses: {
+    [OK]: jsonContent(
+      z.object({
+        response: z.object({
+        }),
+      }),
+      "Workflow get",
+    ),
+  },
+});
 export type WorkflowPostRoute = typeof post;

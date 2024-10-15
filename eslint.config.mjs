@@ -1,4 +1,5 @@
 import antfu from "@antfu/eslint-config";
+import drizzle from "eslint-plugin-drizzle";
 
 export default antfu(
   {
@@ -39,6 +40,15 @@ export default antfu(
           ignore: ["README.md"],
         },
       ],
+    },
+  },
+  {
+    plugins: {
+      drizzle,
+    },
+    rules: {
+      "drizzle/enforce-delete-with-where": ["error"],
+      "drizzle/enforce-update-with-where": ["error"],
     },
   },
 );

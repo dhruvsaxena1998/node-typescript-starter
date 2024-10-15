@@ -8,7 +8,8 @@
     "paths": {
       "~/*": ["./*"],
       "@lib/*": ["./src/lib/*"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@database/*": ["./src/database/*"]
     },
     "types": [
       "node"

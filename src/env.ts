@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
 import { env } from "node:process";
@@ -8,10 +10,15 @@ expand(config());
 const EnvSchema = z.object({
   NODE_ENV: z.enum(["dev", "stage", "uat", "preprod", "prod"]).default("dev"),
 
-  // eslint-disable-next-line no-magic-numbers
   SERVER_PORT: z.coerce.number().default(3000),
 
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("debug"),
+
+  DB_HOST: z.string().default("localhost"),
+  DB_PORT: z.coerce.number().default(3306),
+  DB_USER: z.string(),
+  DB_PASS: z.string(),
+  DB_NAME: z.string(),
 });
 
 export type ENV = z.infer<typeof EnvSchema>;

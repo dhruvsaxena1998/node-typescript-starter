@@ -8,11 +8,12 @@ import { secureHeaders } from "hono/secure-headers";
 
 import RootRouter from "./routes/root-router";
 import UserRouter from "./routes/users";
+import { pinoHttpLogger } from "./utils/logger";
 
 const app = createApp();
 
 app.use(secureHeaders());
-app.use(PinoLogger(ENV.LOG_LEVEL));
+app.use(pinoHttpLogger());
 app.use(prettyJSON());
 
 if (ENV.NODE_ENV !== "prod") {

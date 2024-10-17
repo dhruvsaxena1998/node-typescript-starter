@@ -20,7 +20,7 @@ export const CreateUser = createRoute({
 export type CreateUserRoute = typeof CreateUser;
 
 export const GetUserByID = createRoute({
-  path: "/users/:id",
+  path: "/users/{id}",
   method: "get",
   tags,
   responses: {

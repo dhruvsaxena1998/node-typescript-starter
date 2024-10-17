@@ -2,10 +2,10 @@ import { createRoute, z } from "@hono/zod-openapi";
 import { OK } from "@lib/constants/http-status-codes";
 import { jsonContent } from "@lib/utils/openapi/helpers";
 
-export const tags = ["Workflow"];
+export const tags = ["Users"];
 
-export const post = createRoute({
-  path: "/workflow",
+export const CreateUser = createRoute({
+  path: "/users",
   method: "post",
   tags,
   responses: {
@@ -13,12 +13,14 @@ export const post = createRoute({
       z.object({
         response: z.object({}),
       }),
-      "Workflow Post",
+      "Create User",
     ),
   },
 });
-export const get = createRoute({
-  path: "/workflow",
+export type CreateUserRoute = typeof CreateUser;
+
+export const GetUserByID = createRoute({
+  path: "/users/:id",
   method: "get",
   tags,
   responses: {
@@ -26,8 +28,8 @@ export const get = createRoute({
       z.object({
         response: z.object({}),
       }),
-      "Workflow get",
+      "Get User By ID",
     ),
   },
 });
-export type WorkflowPostRoute = typeof post;
+export type GetUserByIDRoute = typeof GetUserByID;

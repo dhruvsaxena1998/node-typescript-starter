@@ -19,7 +19,8 @@ export default antfu(
       "antfu/no-top-level-await": ["off"],
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
-      "brace-style": ["error", "1tbs"],
+      "style/brace-style": ["error", "1tbs"],
+      "style/operator-linebreak": ["off"],
       "no-magic-numbers": [
         "error",
         {

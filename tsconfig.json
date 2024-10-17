@@ -7,9 +7,12 @@
     "moduleResolution": "Bundler",
     "paths": {
       "~/*": ["./*"],
-      "@lib/*": ["./src/lib/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@database/*": ["./src/database/*"]
+      "@lib/*": ["./lib/*"],
+
+      "#env": ["./src/env.ts"],
+      "#routes/*": ["./src/routes/*"],
+      "#database/*": ["./src/database/*"],
+      "#utils/*": ["./src/utils/*"]
     },
     "types": [
       "node"

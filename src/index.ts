@@ -1,12 +1,12 @@
 import { serve } from "@hono/node-server";
-import { Logger } from "@lib/utils/logger";
+import ENV from "#env";
+import { logger } from "#utils/logger";
 
 import { app } from "./app";
-import ENV from "./env";
 
 const port = ENV.SERVER_PORT;
 
-Logger.info(`
+logger.info(`
     Server is up and running...
     
     Server: http://localhost:${port}

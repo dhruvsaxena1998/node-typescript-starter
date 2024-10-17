@@ -1,18 +1,20 @@
 import type { Hook } from "@hono/zod-openapi";
 
 import { apiReference } from "@scalar/hono-api-reference";
-import packageJSON from "~/package.json";
 
 import type { AppOpenAPI } from "../../@types/app";
 
 import { UNPROCESSABLE_ENTITY } from "../../constants/http-status-codes";
 
-function configureOpenApiSpec(app: AppOpenAPI) {
+function configureOpenApiSpec(app: AppOpenAPI, info: {
+  title: string;
+  version: string;
+}) {
   app.doc("/openapi", {
     openapi: "3.0.0",
     info: {
-      version: packageJSON.version,
-      title: packageJSON.name,
+      title: info.title,
+      version: info.version,
     },
   });
 

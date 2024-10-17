@@ -1,4 +1,3 @@
-import ENV from "~/src/env";
 import { logger } from "hono-pino";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
@@ -25,11 +24,11 @@ const streams = [
   { stream: errorFileStream, level: "error" },
 ];
 
-export function PinoLogger() {
+export function PinoLogger(level: pino.Level) {
   return logger({
     pino: pino(
       {
-        level: ENV.LOG_LEVEL,
+        level,
         name: "request-logs",
       },
       pino.multistream(streams),
@@ -40,7 +39,9 @@ export function PinoLogger() {
   });
 }
 
-export const Logger = pino(
-  { name: "app-logs", level: ENV.LOG_LEVEL },
-  pino.multistream(streams),
-);
+export function Logger(level: pino.Level) {
+  return pino(
+    { name: "app-logs", level },
+    pino.multistream(streams),
+  );
+}

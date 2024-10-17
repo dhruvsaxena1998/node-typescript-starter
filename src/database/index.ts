@@ -1,8 +1,8 @@
 import type { Logger as DrizzleLogger } from "drizzle-orm";
 import type { Connection } from "mysql2/promise";
 
-import { Logger } from "@lib/utils/logger";
-import ENV from "~/src/env";
+import ENV from "#env";
+import { logger } from "#utils/logger";
 import { drizzle } from "drizzle-orm/mysql2";
 import { createConnection } from "mysql2/promise";
 
@@ -10,7 +10,7 @@ let client: Connection;
 
 class QueryLogger implements DrizzleLogger {
   logQuery(query: string, params: unknown[]): void {
-    Logger.debug(JSON.stringify({ query, params }));
+    logger.debug(JSON.stringify({ query, params }));
   }
 }
 

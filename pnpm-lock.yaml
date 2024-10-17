@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@asteasolutions/zod-to-openapi':
+        specifier: ^7.2.0
+        version: 7.2.0(zod@3.23.8)
       '@hono/node-server':
         specifier: ^1.13.2
         version: 1.13.2(hono@4.6.4)

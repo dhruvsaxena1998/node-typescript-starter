@@ -9,6 +9,7 @@
     "fmt": "prettier --write ./src"
   },
   "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^7.2.0",
     "@hono/node-server": "^1.13.2",
     "@hono/zod-openapi": "^0.16.4",
     "@scalar/hono-api-reference": "^0.5.153",

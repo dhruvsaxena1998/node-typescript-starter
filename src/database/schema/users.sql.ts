@@ -17,9 +17,7 @@ export const users = mysqlTable("users", {
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).unique().notNull(),
   password: text("password").notNull(),
-  createdAt: datetime("created_at", { mode: "string" }).default(
-    sql`CURRENT_TIMESTAMP`,
-  ),
+  createdAt: datetime("created_at", { mode: "string" }).default("CURRENT_TIMESTAMP"),
 });
 
 export const selectUsersSchema = createSelectSchema(users);

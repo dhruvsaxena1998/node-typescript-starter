@@ -23,10 +23,16 @@ export const CreateUserHandler: AppRouteHandler<CreateUserRoute> = async (
     })
     .$returningId();
 
+  const [user] = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, result.id))
+    .limit(1);
+
   return ctx.json(
     {
       success: true,
-      data: { id: result.id, ...json },
+      data: user,
     },
     HTTPStatusCodes.OK,
   );

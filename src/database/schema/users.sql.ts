@@ -1,4 +1,4 @@
-import type { z } from "zod";
+import type { z } from "@hono/zod-openapi";
 
 import { sql } from "drizzle-orm";
 import {
@@ -38,5 +38,7 @@ export const insertUsersSchema = createInsertSchema(users, {
   name: s => s.name.min(1),
   email: s => s.email.email(),
   password: s => s.password.min(1).max(MAX_PASSWORD_LENGTH),
-}).required({ name: true }).omit({ id: true, createdAt: true });
+})
+  .required({ name: true })
+  .omit({ id: true, createdAt: true });
 export type InsertUsersSchema = z.infer<typeof insertUsersSchema>;

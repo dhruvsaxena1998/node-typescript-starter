@@ -6,6 +6,8 @@ import { logger } from "#utils/logger";
 import { drizzle } from "drizzle-orm/mysql2";
 import { createConnection } from "mysql2/promise";
 
+// import * as schema from "./schema";
+
 let client: Connection;
 
 class QueryLogger implements DrizzleLogger {
@@ -16,6 +18,7 @@ class QueryLogger implements DrizzleLogger {
 
 function getDatabaseInstance(client: Connection) {
   return drizzle(client, {
+    // schema, // FIXME: Schema is not working with drizzle
     logger: new QueryLogger(),
   });
 }

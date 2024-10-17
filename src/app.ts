@@ -1,5 +1,4 @@
 import createApp from "@lib/utils/create-app";
-import { PinoLogger } from "@lib/utils/logger";
 import configureOpenApiSpec from "@lib/utils/openapi/configure-openapi-spec";
 import ENV from "#env";
 import packageJSON from "~/package.json";

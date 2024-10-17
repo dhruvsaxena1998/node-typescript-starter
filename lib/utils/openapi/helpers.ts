@@ -26,14 +26,18 @@ export function jsonContentRequired<T extends ZodSchema>(
   };
 }
 
-export function createParamsSchema(key: string) {
+export function createParamsSchema(key: string, example?: number) {
   return z
     .object({
       [key]: z.coerce.number().positive(),
     })
     .openapi({
+      param: {
+        name: key,
+        in: "path",
+      },
       example: {
-        [key]: 1,
+        [key]: example ?? 1,
       },
     });
 }

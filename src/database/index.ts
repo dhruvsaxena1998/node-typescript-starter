@@ -20,7 +20,7 @@ function getDatabaseInstance(client: Connection) {
   });
 }
 
-export async function connect() {
+export async function getConnection() {
   if (!client) {
     client = await createConnection({
       host: ENV.DB_HOST,

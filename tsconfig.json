@@ -10,8 +10,10 @@
       "@lib/*": ["./lib/*"],
 
       "#env": ["./src/env.ts"],
+      "#database": ["./src/database/index.ts"],
+
       "#routes/*": ["./src/routes/*"],
-      "#database/*": ["./src/database/*"],
+      "#schemas/*": ["./src/database/schema/*"],
       "#utils/*": ["./src/utils/*"]
     },
     "types": [

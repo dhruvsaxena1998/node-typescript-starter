@@ -1,6 +1,17 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { OK } from "@lib/constants/http-status-codes";
-import { jsonContent } from "@lib/utils/openapi/helpers";
+import {
+  NOT_FOUND,
+  OK,
+  UNPROCESSABLE_ENTITY,
+} from "@lib/constants/http-status-codes";
+import {
+  createErrorSchema,
+  createNotFoundSchema,
+  createParamsSchema,
+  createSuccessSchema,
+  jsonContent,
+} from "@lib/utils/openapi/helpers";
+import { insertUsersSchema, selectUsersSchemaOpenAPI } from "#schemas/users.sql";
 
 export const tags = ["Users"];
 
@@ -8,12 +19,20 @@ export const CreateUser = createRoute({
   path: "/users",
   method: "post",
   tags,
+  request: {
+    body: jsonContent(
+      insertUsersSchema,
+      "Request Body",
+    ),
+  },
   responses: {
     [OK]: jsonContent(
-      z.object({
-        response: z.object({}),
-      }),
+      createSuccessSchema(selectUsersSchemaOpenAPI),
       "Create User",
+    ),
+    [UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(insertUsersSchema),
+      "Validation Error(s)",
     ),
   },
 });
@@ -23,12 +42,21 @@ export const GetUserByID = createRoute({
   path: "/users/{id}",
   method: "get",
   tags,
+  request: {
+    params: createParamsSchema("id"),
+  },
   responses: {
     [OK]: jsonContent(
-      z.object({
-        response: z.object({}),
-      }),
-      "Get User By ID",
+      createSuccessSchema(selectUsersSchemaOpenAPI),
+      "User",
+    ),
+    [NOT_FOUND]: jsonContent(
+      createNotFoundSchema("User not found!"),
+      "Not Found",
+    ),
+    [UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(createParamsSchema("id")),
+      "Validation Error(s)",
     ),
   },
 });

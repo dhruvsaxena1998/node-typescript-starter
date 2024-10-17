@@ -34,7 +34,7 @@ function configureOpenApiSpec(app: AppOpenAPI, info: {
   );
 }
 
-export const defaultHook: Hook<any, any, any, any> = (result, c) => {
+export const ValidationHook: Hook<any, any, any, any> = (result, c) => {
   if (!result.success) {
     return c.json(
       {

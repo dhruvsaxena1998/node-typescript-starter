@@ -2,10 +2,13 @@
 
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
-import { env } from "node:process";
+import path from "node:path";
+import { cwd, env } from "node:process";
 import { z } from "zod";
 
-expand(config());
+expand(config({
+  path: path.resolve(cwd(), env.NODE_ENV === "test" ? ".env.test" : ".env"),
+}));
 
 const EnvSchema = z.object({
   NODE_ENV: z.enum(["dev", "stage", "uat", "preprod", "prod", "test"]).default("dev"),

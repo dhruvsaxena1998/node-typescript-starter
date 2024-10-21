@@ -8,7 +8,7 @@ import RootRouter from "@/routes/root-router";
 import UserRouter from "@/routes/users";
 import { pinoHttpLogger } from "@/utils/logger";
 
-import packageJSON from "../package.json";
+import packageJSON from "../package.json" with { type: "json" };
 
 const app = createApp();
 
@@ -23,13 +23,9 @@ if (ENV.NODE_ENV !== "prod") {
   });
 }
 
-const routes = [
-  RootRouter,
-  UserRouter,
-];
-
-routes.forEach((route) => {
-  app.route("/", route);
-});
+const _app = app
+  .route("/", RootRouter)
+  .route("/", UserRouter);
 
 export { app };
+export type App = typeof _app;

@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "type-check": "tsc --noEmit",
+    "build": "tsc && tsc-alias",
+    "start": "node ./dist/src/index.js",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "fmt": "prettier --write ./src",
@@ -24,16 +27,17 @@
     "pino": "^9.4.0",
     "pino-pretty": "^11.2.2",
     "rotating-file-stream": "^3.2.5",
+    "tsc-alias": "^1.8.10",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.7.3",
     "@types/node": "^20.11.17",
+    "cross-env": "^7.0.3",
     "eslint": "^9.11.1",
     "eslint-plugin-drizzle": "^0.2.3",
     "eslint-plugin-format": "^0.1.2",
     "tsx": "^4.7.1",
-    "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^2.1.3"
   }
 }

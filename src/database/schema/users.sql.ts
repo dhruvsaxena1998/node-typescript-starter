@@ -1,6 +1,5 @@
 import type { z } from "@hono/zod-openapi";
 
-import { sql } from "drizzle-orm";
 import {
   datetime,
   int,

@@ -1,13 +1,14 @@
-import createApp from "@lib/utils/create-app";
-import configureOpenApiSpec from "@lib/utils/openapi/configure-openapi-spec";
-import ENV from "#env";
-import packageJSON from "~/package.json";
 import { prettyJSON } from "hono/pretty-json";
 import { secureHeaders } from "hono/secure-headers";
 
-import RootRouter from "./routes/root-router";
-import UserRouter from "./routes/users";
-import { pinoHttpLogger } from "./utils/logger";
+import ENV from "@/env";
+import createApp from "@/lib/utils/create-app";
+import configureOpenApiSpec from "@/lib/utils/openapi/configure-openapi-spec";
+import RootRouter from "@/routes/root-router";
+import UserRouter from "@/routes/users";
+import { pinoHttpLogger } from "@/utils/logger";
+
+import packageJSON from "../package.json";
 
 const app = createApp();
 

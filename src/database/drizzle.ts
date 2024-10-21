@@ -1,10 +1,11 @@
 import type { Logger as DrizzleLogger } from "drizzle-orm";
 import type { Connection } from "mysql2/promise";
 
-import ENV from "#env";
-import { logger } from "#utils/logger";
 import { drizzle } from "drizzle-orm/mysql2";
 import { createConnection } from "mysql2/promise";
+
+import ENV from "@/env";
+import { logger } from "@/utils/logger";
 
 // import * as schema from "./schema";
 

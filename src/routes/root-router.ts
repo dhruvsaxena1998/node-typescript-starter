@@ -1,8 +1,9 @@
 import { createRoute } from "@hono/zod-openapi";
-import * as HTTPStatusCodes from "@lib/constants/http-status-codes";
-import { createRouter } from "@lib/utils/create-app";
-import { jsonContent } from "@lib/utils/openapi/helpers";
 import { z } from "zod";
+
+import * as HTTPStatusCodes from "@/lib/constants/http-status-codes";
+import { createRouter } from "@/lib/utils/create-app";
+import { jsonContent } from "@/lib/utils/openapi/helpers";
 
 const RootRouter = createRouter().openapi(
   createRoute({

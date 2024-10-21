@@ -1,17 +1,21 @@
 import { createRoute, z } from "@hono/zod-openapi";
+
+import {
+  insertUsersSchema,
+  selectUsersSchemaOpenAPI,
+} from "@/database/schema/users.sql";
 import {
   NOT_FOUND,
   OK,
   UNPROCESSABLE_ENTITY,
-} from "@lib/constants/http-status-codes";
+} from "@/lib/constants/http-status-codes";
 import {
   createErrorSchema,
   createNotFoundSchema,
   createParamsSchema,
   createSuccessSchema,
   jsonContent,
-} from "@lib/utils/openapi/helpers";
-import { insertUsersSchema, selectUsersSchemaOpenAPI } from "#schemas/users.sql";
+} from "@/lib/utils/openapi/helpers";
 
 export const tags = ["Users"];
 
@@ -20,10 +24,7 @@ export const CreateUser = createRoute({
   method: "post",
   tags,
   request: {
-    body: jsonContent(
-      insertUsersSchema,
-      "Request Body",
-    ),
+    body: jsonContent(insertUsersSchema, "Request Body"),
   },
   responses: {
     [OK]: jsonContent(
@@ -46,10 +47,7 @@ export const GetUserByID = createRoute({
     params: createParamsSchema("id"),
   },
   responses: {
-    [OK]: jsonContent(
-      createSuccessSchema(selectUsersSchemaOpenAPI),
-      "User",
-    ),
+    [OK]: jsonContent(createSuccessSchema(selectUsersSchemaOpenAPI), "User"),
     [NOT_FOUND]: jsonContent(
       createNotFoundSchema("User not found!"),
       "Not Found",
@@ -61,3 +59,16 @@ export const GetUserByID = createRoute({
   },
 });
 export type GetUserByIDRoute = typeof GetUserByID;
+
+export const GetAllUsers = createRoute({
+  path: "/users",
+  method: "get",
+  tags,
+  responses: {
+    [OK]: jsonContent(
+      createSuccessSchema(z.array(selectUsersSchemaOpenAPI)),
+      "All Users",
+    ),
+  },
+});
+export type GetAllUsersRoute = typeof GetAllUsers;

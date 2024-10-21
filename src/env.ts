@@ -8,7 +8,7 @@ import { z } from "zod";
 expand(config());
 
 const EnvSchema = z.object({
-  NODE_ENV: z.enum(["dev", "stage", "uat", "preprod", "prod"]).default("dev"),
+  NODE_ENV: z.enum(["dev", "stage", "uat", "preprod", "prod", "test"]).default("dev"),
 
   SERVER_PORT: z.coerce.number().default(3000),
 

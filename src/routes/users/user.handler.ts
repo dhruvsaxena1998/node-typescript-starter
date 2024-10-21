@@ -1,11 +1,16 @@
-import type { AppRouteHandler } from "@lib/@types/app";
-
-import * as HTTPStatusCodes from "@lib/constants/http-status-codes";
-import { getConnection } from "#database";
-import { users } from "#schemas/users.sql";
 import { eq } from "drizzle-orm";
 
-import type { CreateUserRoute, GetUserByIDRoute } from "./user.route";
+import type { AppRouteHandler } from "@/lib/@types/app";
+
+import { getConnection } from "@/database/drizzle";
+import { users } from "@/database/schema/users.sql";
+import * as HTTPStatusCodes from "@/lib/constants/http-status-codes";
+
+import type {
+  CreateUserRoute,
+  GetAllUsersRoute,
+  GetUserByIDRoute,
+} from "./user.route";
 
 export const CreateUserHandler: AppRouteHandler<CreateUserRoute> = async (
   ctx,
@@ -57,4 +62,17 @@ export const GetUserByIDHandler: AppRouteHandler<GetUserByIDRoute> = async (
   }
 
   return ctx.json({ success: true, data: result }, HTTPStatusCodes.OK);
+};
+
+export const GetAllUsersHandler: AppRouteHandler<GetAllUsersRoute> = async (
+  ctx,
+) => {
+  const db = await getConnection();
+
+  const result = await db.select().from(users);
+
+  return ctx.json({
+    success: true,
+    data: result,
+  }, HTTPStatusCodes.OK);
 };

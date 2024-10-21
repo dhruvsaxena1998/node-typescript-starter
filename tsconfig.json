@@ -6,15 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "~/*": ["./*"],
-      "@lib/*": ["./lib/*"],
-
-      "#env": ["./src/env.ts"],
-      "#database": ["./src/database/index.ts"],
-
-      "#routes/*": ["./src/routes/*"],
-      "#schemas/*": ["./src/database/schema/*"],
-      "#utils/*": ["./src/utils/*"]
+      "@/*": ["./src/*"]
     },
     "types": [
       "node"

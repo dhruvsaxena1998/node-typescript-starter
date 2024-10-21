@@ -6,7 +6,8 @@
     "dev": "tsx watch src/index.ts",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "fmt": "prettier --write ./src"
+    "fmt": "prettier --write ./src",
+    "test": "vitest"
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^7.2.0",
@@ -31,6 +32,8 @@
     "eslint": "^9.11.1",
     "eslint-plugin-drizzle": "^0.2.3",
     "eslint-plugin-format": "^0.1.2",
-    "tsx": "^4.7.1"
+    "tsx": "^4.7.1",
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "^2.1.3"
   }
 }

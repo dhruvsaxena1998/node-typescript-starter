@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import * as HTTPStatusCodes from "@/lib/constants/http-status-codes";
 import { createRouter } from "@/lib/utils/create-app";
-import { jsonContent } from "@/lib/utils/openapi/helpers";
+import { createSuccessSchema, jsonContent } from "@/lib/utils/openapi/helpers";
 
 const RootRouter = createRouter().openapi(
   createRoute({
@@ -12,16 +12,21 @@ const RootRouter = createRouter().openapi(
     tags: ["Root"],
     responses: {
       [HTTPStatusCodes.OK]: jsonContent(
-        z.object({
-          message: z.string(),
-        }),
+        createSuccessSchema(
+          z.object({
+            message: z.string(),
+          }),
+        ),
         "Root Path",
       ),
     },
   }),
   (c) => {
     return c.json({
-      message: "Hello World",
+      success: true,
+      data: {
+        message: "Hello World",
+      },
     });
   },
 );

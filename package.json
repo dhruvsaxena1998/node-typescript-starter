@@ -24,6 +24,7 @@
     "hono": "^4.6.4",
     "hono-pino": "^0.3.0",
     "mysql2": "^3.11.3",
+    "neverthrow": "^8.0.0",
     "pino": "^9.4.0",
     "pino-pretty": "^11.2.2",
     "rotating-file-stream": "^3.2.5",

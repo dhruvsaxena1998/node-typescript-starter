@@ -7,7 +7,7 @@ import { createConnection } from "mysql2/promise";
 import ENV from "@/env";
 import { logger } from "@/utils/logger";
 
-// import * as schema from "./schema";
+import * as schema from "./schema";
 
 let client: Connection;
 
@@ -19,8 +19,9 @@ class QueryLogger implements DrizzleLogger {
 
 function getDatabaseInstance(client: Connection) {
   return drizzle(client, {
-    // schema, // FIXME: Schema is not working with drizzle
     logger: new QueryLogger(),
+    mode: "default",
+    schema,
   });
 }
 

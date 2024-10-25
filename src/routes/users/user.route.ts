@@ -11,9 +11,8 @@ import {
 } from "@/lib/constants/http-status-codes";
 import {
   createErrorSchema,
-  createNotFoundSchema,
-  createParamsSchema,
   createSuccessSchema,
+  createValidationErrorSchema,
   jsonContent,
 } from "@/lib/utils/openapi/helpers";
 
@@ -32,7 +31,7 @@ export const CreateUser = createRoute({
       "Create User",
     ),
     [UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(insertUsersSchema),
+      createValidationErrorSchema(insertUsersSchema),
       "Validation Error(s)",
     ),
   },
@@ -44,16 +43,15 @@ export const GetUserByID = createRoute({
   method: "get",
   tags,
   request: {
-    params: createParamsSchema("id"),
+    params: z.object({ id: z.number() }).openapi({ example: { id: 1 } }),
   },
   responses: {
     [OK]: jsonContent(createSuccessSchema(selectUsersSchemaOpenAPI), "User"),
-    [NOT_FOUND]: jsonContent(
-      createNotFoundSchema("User not found!"),
-      "Not Found",
-    ),
+    [NOT_FOUND]: jsonContent(createErrorSchema("User not found!"), "Not Found"),
     [UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(createParamsSchema("id")),
+      createValidationErrorSchema(
+        z.object({ id: z.number() }).openapi({ example: { id: 1 } }),
+      ),
       "Validation Error(s)",
     ),
   },

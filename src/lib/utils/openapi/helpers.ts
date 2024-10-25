@@ -64,23 +64,7 @@ export function jsonContentOneOf<T extends ZodSchema>(
   };
 }
 
-export function createParamsSchema(key: string, example?: number) {
-  return z
-    .object({
-      [key]: z.coerce.number().positive(),
-    })
-    .openapi({
-      param: {
-        name: key,
-        in: "path",
-      },
-      example: {
-        [key]: example ?? 1,
-      },
-    });
-}
-
-export function createErrorSchema<T extends ZodSchema>(schema: T) {
+export function createValidationErrorSchema<T extends ZodSchema>(schema: T) {
   const { error } = schema.safeParse(
     schema._def.typeName === z.ZodFirstPartyTypeKind.ZodArray ? [] : {},
   );
@@ -104,18 +88,7 @@ export function createErrorSchema<T extends ZodSchema>(schema: T) {
   });
 }
 
-export function createSuccessSchema<T extends ZodSchema>(schema: T) {
-  const example = schema?._def?.openapi?.metadata?.example;
-
-  return z.object({
-    success: z.boolean().openapi({ example: true }),
-    data: schema?.openapi({
-      example,
-    }),
-  });
-}
-
-export function createNotFoundSchema(example?: string) {
+export function createErrorSchema<T extends string = "">(example?: T) {
   return z.object({
     success: z.boolean().openapi({ example: false }),
     error: z
@@ -131,5 +104,16 @@ export function createNotFoundSchema(example?: string) {
           issues: [{ message: example ?? "" }],
         },
       }),
+  });
+}
+
+export function createSuccessSchema<T extends ZodSchema>(schema: T) {
+  const example = schema?._def?.openapi?.metadata?.example;
+
+  return z.object({
+    success: z.boolean().openapi({ example: true }),
+    data: schema?.openapi({
+      example,
+    }),
   });
 }

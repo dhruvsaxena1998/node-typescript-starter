@@ -43,14 +43,14 @@ export const GetUserByID = createRoute({
   method: "get",
   tags,
   request: {
-    params: z.object({ id: z.number() }).openapi({ example: { id: 1 } }),
+    params: z.object({ id: z.coerce.number() }).openapi({ example: { id: 1 } }),
   },
   responses: {
     [OK]: jsonContent(createSuccessSchema(selectUsersSchemaOpenAPI), "User"),
     [NOT_FOUND]: jsonContent(createErrorSchema("User not found!"), "Not Found"),
     [UNPROCESSABLE_ENTITY]: jsonContent(
       createValidationErrorSchema(
-        z.object({ id: z.number() }).openapi({ example: { id: 1 } }),
+        z.object({ id: z.coerce.number() }).openapi({ example: { id: 1 } }),
       ),
       "Validation Error(s)",
     ),

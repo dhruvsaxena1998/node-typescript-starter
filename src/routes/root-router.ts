@@ -1,5 +1,5 @@
 import { createRoute } from "@hono/zod-openapi";
-import { z } from "zod";
+import { z } from "@hono/zod-openapi";
 
 import * as HTTPStatusCodes from "@/lib/constants/http-status-codes";
 import { createRouter } from "@/lib/utils/create-app";

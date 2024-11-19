@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 
 import type { AppRouteHandler } from "@/lib/@types/app";
 
-import { getConnection } from "@/database/drizzle";
+import { database } from "@/database/drizzle";
 import { users } from "@/database/schema/users.sql";
 import * as HTTPStatusCodes from "@/lib/constants/http-status-codes";
 
@@ -15,11 +15,9 @@ import type {
 export const CreateUserHandler: AppRouteHandler<CreateUserRoute> = async (
   ctx,
 ) => {
-  const db = await getConnection();
-
   const json = ctx.req.valid("json");
 
-  const [result] = await db
+  const [result] = await database
     .insert(users)
     .values({
       name: json.name,
@@ -40,10 +38,9 @@ export const CreateUserHandler: AppRouteHandler<CreateUserRoute> = async (
 export const GetUserByIDHandler: AppRouteHandler<GetUserByIDRoute> = async (
   ctx,
 ) => {
-  const db = await getConnection();
   const { id } = ctx.req.valid("param");
 
-  const [result] = await db
+  const [result] = await database
     .select()
     .from(users)
     .where(eq(users.id, id))
@@ -67,12 +64,14 @@ export const GetUserByIDHandler: AppRouteHandler<GetUserByIDRoute> = async (
 export const GetAllUsersHandler: AppRouteHandler<GetAllUsersRoute> = async (
   ctx,
 ) => {
-  const db = await getConnection();
+  // const result = await database.select().from(users);
+  const result = await database.query.users.findMany();
 
-  const result = await db.select().from(users);
-
-  return ctx.json({
-    success: true,
-    data: result,
-  }, HTTPStatusCodes.OK);
+  return ctx.json(
+    {
+      success: true,
+      data: result,
+    },
+    HTTPStatusCodes.OK,
+  );
 };

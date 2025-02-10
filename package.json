@@ -34,7 +34,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.9.1",
+    "@antfu/eslint-config": "^4.2.0",
     "@types/node": "^22.9.0",
     "cross-env": "^7.0.3",
     "eslint": "^9.15.0",

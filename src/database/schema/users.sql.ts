@@ -1,5 +1,3 @@
-import type { z } from "@hono/zod-openapi";
-
 import {
   datetime,
   int,
@@ -8,6 +6,8 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+
+import type { z } from "@hono/zod-openapi";
 
 const MAX_PASSWORD_LENGTH = 70;
 
@@ -34,9 +34,9 @@ export const selectUsersSchemaOpenAPI = selectUsersSchema.openapi({
 export type SelectUsersSchema = z.infer<typeof selectUsersSchema>;
 
 export const insertUsersSchema = createInsertSchema(users, {
-  name: (s) => s.name.min(1),
-  email: (s) => s.email.email(),
-  password: (s) => s.password.min(1).max(MAX_PASSWORD_LENGTH),
+  name: s => s.name.min(1),
+  email: s => s.email.email(),
+  password: s => s.password.min(1).max(MAX_PASSWORD_LENGTH),
 })
   .required({ name: true })
   .omit({ id: true, createdAt: true })

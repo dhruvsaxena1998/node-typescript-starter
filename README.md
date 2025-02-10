@@ -97,6 +97,12 @@ Create .env file by replicating .env.example and fill as per needs. To properly 
 pnpm dev
 ```
 
+### Starting Application using Docker
+
+```bash
+docker compose up/down
+```
+
 ### Building
 
 ```bash
@@ -119,6 +125,15 @@ pnpm <command>
 | fmt        | auto-format via prettier                 |
 | test       | test application                         |
 | type-check | typecheck application without building   |
+
+### Deployment
+
+```dockerfile
+# Use the dockerfile
+
+docker build -t <image-name> .
+docker container run --name app -p 3000:3000 <image-name>
+```
 
 ## Authors
 

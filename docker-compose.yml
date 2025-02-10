@@ -1,0 +1,26 @@
+services:
+  app:
+    image: node:lts-alpine3.20
+    container_name: app
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=dev
+      - SERVER_PORT=3000
+    command: >
+      sh -c "npm install -g pnpm && pnpm install && pnpm dev"
+    networks:
+      - app-network
+
+volumes:
+  node_modules:
+
+networks:
+  app-network:
+    driver: bridge

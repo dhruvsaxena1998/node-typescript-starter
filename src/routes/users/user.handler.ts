@@ -6,11 +6,7 @@ import { database } from "@/database/drizzle";
 import { users } from "@/database/schema/users.sql";
 import * as HTTPStatusCodes from "@/lib/constants/http-status-codes";
 
-import type {
-  CreateUserRoute,
-  GetAllUsersRoute,
-  GetUserByIDRoute,
-} from "./user.route";
+import type { CreateUserRoute, GetAllUsersRoute, GetUserByIDRoute } from "./user.route";
 
 export const CreateUserHandler: AppRouteHandler<CreateUserRoute> = async (
   ctx,

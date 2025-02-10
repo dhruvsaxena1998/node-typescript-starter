@@ -1,5 +1,6 @@
-import antfu from "@antfu/eslint-config";
 import drizzle from "eslint-plugin-drizzle";
+
+import antfu from "@antfu/eslint-config";
 
 export default antfu(
   {
@@ -31,7 +32,7 @@ export default antfu(
       "perfectionist/sort-imports": [
         "error",
         {
-          internalPattern: ["@/**"],
+          internalPattern: ["@\/*"],
         },
       ],
       "unicorn/filename-case": [

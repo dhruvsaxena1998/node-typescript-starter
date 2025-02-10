@@ -23,9 +23,7 @@ if (ENV.NODE_ENV !== "prod") {
   });
 }
 
-const _app = app
-  .route("/", RootRouter)
-  .route("/", UserRouter);
+const _app = app.route("/", RootRouter).route("/", UserRouter);
 
 export { app };
 export type App = typeof _app;

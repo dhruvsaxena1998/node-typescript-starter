@@ -1,5 +1,3 @@
-import { createRoute, z } from "@hono/zod-openapi";
-
 import {
   insertUsersSchema,
   selectUsersSchemaOpenAPI,
@@ -15,6 +13,7 @@ import {
   createValidationErrorSchema,
   jsonContent,
 } from "@/lib/utils/openapi/helpers";
+import { createRoute, z } from "@hono/zod-openapi";
 
 export const tags = ["Users"];
 

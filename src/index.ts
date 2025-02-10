@@ -1,7 +1,6 @@
-import { serve } from "@hono/node-server";
-
 import ENV from "@/env";
 import { logger } from "@/utils/logger";
+import { serve } from "@hono/node-server";
 
 import { app } from "./app";
 

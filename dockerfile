@@ -6,11 +6,10 @@ RUN npm install -g pnpm
 WORKDIR /app
 
 # Copy package.json and pnpm-lock.yaml
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml ./
 
 # Install app dependencies
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # Copy source
 COPY . .
@@ -32,7 +31,7 @@ COPY --from=builder /app/pnpm-lock.yaml /app/pnpm-lock.yaml
 COPY --from=builder /app/.env /app/.env
 
 # Install app dependencies
-RUN pnpm install --prod
+RUN pnpm install --prod --frozen-lockfile
 
 # Expose ports
 EXPOSE 3000

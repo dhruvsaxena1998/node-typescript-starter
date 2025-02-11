@@ -23,7 +23,7 @@ const RootRouter = createRouter().openapi(
     return c.json({
       success: true,
       data: {
-        message: "Hello World",
+        message: "Hello World from the root path!",
       },
     });
   },

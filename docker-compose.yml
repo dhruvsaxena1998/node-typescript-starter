@@ -1,4 +1,19 @@
 services:
+  database:
+    image: mysql:9.2.0
+    container_name: database
+    restart: always
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    networks:
+      - app-network
+
   app:
     image: node:lts-alpine3.20
     container_name: app
@@ -6,19 +21,26 @@ services:
     volumes:
       - ./:/app
       - node_modules:/app/node_modules
-    ports:
-      - 3000:3000
     env_file:
       - .env
     environment:
       - NODE_ENV=dev
       - SERVER_PORT=3000
+    ports:
+      - 3000:3000
     command: >
-      sh -c "npm install -g pnpm && pnpm install && pnpm dev"
+      sh -c "
+      if ! command -v pnpm &> /dev/null; then
+        npm install -g pnpm;
+      fi &&
+      pnpm install &&
+      pnpm dev
+      "
     networks:
       - app-network
 
 volumes:
+  database:
   node_modules:
 
 networks:

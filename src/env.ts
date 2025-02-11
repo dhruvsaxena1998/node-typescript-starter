@@ -19,11 +19,11 @@ const EnvSchema = z.object({
     .enum(["fatal", "error", "warn", "info", "debug", "trace"])
     .default("debug"),
 
-  DB_HOST: z.string().default("localhost"),
-  DB_PORT: z.coerce.number().default(3306),
-  DB_USER: z.string(),
-  DB_PASS: z.string(),
-  DB_NAME: z.string(),
+  MYSQL_HOST: z.string().default("localhost"),
+  MYSQL_PORT: z.coerce.number().default(3306),
+  MYSQL_USER: z.string(),
+  MYSQL_PASSWORD: z.string(),
+  MYSQL_DATABASE: z.string(),
 });
 
 export type ENV = z.infer<typeof EnvSchema>;

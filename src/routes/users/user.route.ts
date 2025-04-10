@@ -1,8 +1,4 @@
 import {
-  insertUsersSchema,
-  selectUsersSchemaOpenAPI,
-} from "@/database/schema/users.sql";
-import {
   NOT_FOUND,
   OK,
   UNPROCESSABLE_ENTITY,
@@ -14,6 +10,11 @@ import {
   jsonContent,
 } from "@/lib/utils/openapi/helpers";
 import { createRoute, z } from "@hono/zod-openapi";
+
+import {
+  insertUsersSchema,
+  selectUsersSchemaOpenAPI,
+} from "./users.dto";
 
 export const tags = ["Users"];
 

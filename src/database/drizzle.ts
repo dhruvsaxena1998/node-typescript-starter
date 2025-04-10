@@ -5,7 +5,7 @@ import { drizzle } from "drizzle-orm/mysql2";
 import ENV from "@/env";
 import { logger } from "@/utils/logger";
 
-import * as schema from "./schema";
+import * as schema from "./schema/index";
 
 class QueryLogger implements DrizzleLogger {
   logQuery(query: string, params: unknown[]): void {
